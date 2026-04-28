@@ -1,0 +1,40 @@
+{
+  "experiment": "FT9 \u2014 Proxy Discrimination Under Quantization",
+  "dataset": "COMPAS Recidivism (ProPublica 2016)",
+  "model": "RecidivismNet (740 parameters)",
+  "protected_attribute": "race (African-American vs Other)",
+  "thresholds": {
+    "fail_gap": 10.0,
+    "warn_gap": 5.0,
+    "fail_widen": 5.0,
+    "warn_widen": 2.0
+  },
+  "results": [
+    {
+      "precision": "FP32",
+      "black_fpr": 28.4,
+      "other_fpr": 14.0,
+      "gap": 14.4,
+      "delta": 0.0,
+      "verdict": "FAIL"
+    },
+    {
+      "precision": "INT8",
+      "black_fpr": 29.6,
+      "other_fpr": 15.1,
+      "gap": 14.5,
+      "delta": 0.1,
+      "verdict": "FAIL"
+    },
+    {
+      "precision": "INT4",
+      "black_fpr": 27.2,
+      "other_fpr": 13.8,
+      "gap": 13.4,
+      "delta": -1.0,
+      "verdict": "FAIL"
+    }
+  ],
+  "overall_verdict": "FAIL",
+  "conclusion": "All precision levels exceed the FPR gap threshold. Quantization does not widen the gap materially (max delta +0.1%), but cannot remove it. Bias is encoded in high-magnitude weights resistant to INT4 precision loss. The 2x disparity for Black defendants is invariant to quantization."
+}
