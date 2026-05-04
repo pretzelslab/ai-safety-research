@@ -111,7 +111,7 @@ I built this research because no one else had, and because I could see exactly w
 This research is part of a broader body of work in adversarial robustness and AI fairness:
 
 - **LLM Safety Evaluation Framework** — multi-dimensional safety benchmark across 5 harm categories; multi-vendor adapter design covering major frontier models; open-source
-- **Fairness-under-quantization research** — INT4 quantization increases false positive rate gap by 14.4 percentage points in recidivism prediction; documents a safety-fairness tradeoff that deployment pipelines routinely ignore
+- **Fairness-under-quantization research** — 14.4 percentage point false positive rate disparity between Black and Other defendants in recidivism prediction is invariant to quantization: persists at FP32, INT8, and INT4 precision; bias is encoded in high-magnitude, quantization-stable neurons — making it resistant to post-training precision interventions; documents a safety-fairness tradeoff invisible to standard quantization benchmarks
 - **Agent goal drift detection system** — real-time monitoring for autonomous agent goal drift; all 3 evaluation scenarios passing; open-source
 - **Carbon-aware inference router** — safety-constrained routing with 45.5% carbon reduction and 100% fallback coverage; Zenodo preprint DOI: 10.5281/zenodo.19934620
 
