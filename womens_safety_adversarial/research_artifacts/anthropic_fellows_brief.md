@@ -115,7 +115,12 @@ This research is part of a broader body of work in adversarial robustness and AI
 - **Agent goal drift detection system** — real-time monitoring for autonomous agent goal drift; all 3 evaluation scenarios passing; open-source
 - **Carbon-aware inference router** — safety-constrained routing with 45.5% carbon reduction and 100% fallback coverage; Zenodo preprint DOI: 10.5281/zenodo.19934621
 
-**Research repository:** github.com/pretzelslab/ai-safety-research/tree/main/womens_safety_adversarial  
-**Zenodo DOI:** 10.5281/zenodo.20028247  
+**Published research:**
+
+Raghuveeran, P. (2026). Adversarial Robustness in Women's Safety AI Systems: Threat Taxonomy, ZIDR Metric, and Governance Gap Analysis. Zenodo. https://doi.org/10.5281/zenodo.20028247
+
+Raghuveeran, P. (2026). Carbon-Aware Inference Routing for Large Language Models: A Real-Time Framework for Sustainable AI Serving. Zenodo. https://doi.org/10.5281/zenodo.19934621
+
+**Repository:** github.com/pretzelslab/ai-safety-research/tree/main/womens_safety_adversarial  
 **GitHub:** github.com/pretzelslab  
 **Email:** rangchampak@gmail.com

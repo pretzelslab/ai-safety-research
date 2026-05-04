@@ -96,7 +96,12 @@ Preethi Raghuveeran is an independent AI safety researcher with a portfolio of a
 - Agent goal drift detection system — real-time monitoring for autonomous agents
 - Carbon-aware inference router — safety-constrained routing; Zenodo preprint DOI: 10.5281/zenodo.19934621
 
-**Research repository:** github.com/pretzelslab/ai-safety-research/tree/main/womens_safety_adversarial  
-**Zenodo DOI:** 10.5281/zenodo.20028247  
+**Published research:**
+
+Raghuveeran, P. (2026). Adversarial Robustness in Women's Safety AI Systems: Threat Taxonomy, ZIDR Metric, and Governance Gap Analysis. Zenodo. https://doi.org/10.5281/zenodo.20028247
+
+Raghuveeran, P. (2026). Carbon-Aware Inference Routing for Large Language Models: A Real-Time Framework for Sustainable AI Serving. Zenodo. https://doi.org/10.5281/zenodo.19934621
+
+**Repository:** github.com/pretzelslab/ai-safety-research/tree/main/womens_safety_adversarial  
 **GitHub:** github.com/pretzelslab  
 **Email:** rangchampak@gmail.com
