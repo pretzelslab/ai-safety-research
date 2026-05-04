@@ -85,10 +85,12 @@ Full research brief published to Zenodo with an open DOI, freely accessible and 
 Preethi Raghuveeran is an independent AI safety researcher with a portfolio of adversarial robustness and fairness tools, all built and published openly:
 
 - **LLM Safety Evaluation Framework** — multi-dimensional safety evaluation across 5 harm categories; multi-vendor adapter design covering major frontier models
-- **Fairness-under-quantization research** — demonstrates that INT4 quantization increases false positive rate gap by 14.4 percentage points in recidivism prediction; published to Zenodo
+- **Fairness-under-quantization research** — 14.4 percentage point false positive rate disparity between Black and Other defendants persists invariantly across FP32, INT8, and INT4 precision levels; bias encoded in high-magnitude, quantization-stable neurons; published to Zenodo
 - **Agent goal drift detection system** — real-time monitoring for autonomous agent goal drift; all 3 evaluation scenarios passing
-- **Carbon-aware inference router** — safety-constrained model routing achieving 45.5% carbon reduction; Zenodo preprint DOI: 10.5281/zenodo.19934620
+- **Carbon-aware inference router** — safety-constrained model routing achieving 45.5% carbon reduction; Zenodo preprint DOI: 10.5281/zenodo.19934621
 
-**Target programs:** Anthropic Fellows Program · BlueDot Impact Frontier AI Governance
-**GitHub:** github.com/pretzelslab
+**Research repository:** github.com/pretzelslab/ai-safety-research/tree/main/womens_safety_adversarial  
+**Zenodo DOI:** 10.5281/zenodo.20028247  
+**Target programs:** Anthropic Fellows Program · BlueDot Impact Frontier AI Governance  
+**GitHub:** github.com/pretzelslab  
 **Email:** rangchampak@gmail.com

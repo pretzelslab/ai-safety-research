@@ -72,4 +72,5 @@ The EU AI Act classifies women's safety systems as high-risk AI (Annex III). Con
 
 **Preethi Raghuveeran**
 Independent AI Safety Researcher
-rangchampak@gmail.com | github.com/pretzelslab
+rangchampak@gmail.com | github.com/pretzelslab  
+Zenodo: 10.5281/zenodo.20028247

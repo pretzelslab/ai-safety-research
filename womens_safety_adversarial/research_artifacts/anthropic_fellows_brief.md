@@ -113,7 +113,9 @@ This research is part of a broader body of work in adversarial robustness and AI
 - **LLM Safety Evaluation Framework** — multi-dimensional safety benchmark across 5 harm categories; multi-vendor adapter design covering major frontier models; open-source
 - **Fairness-under-quantization research** — 14.4 percentage point false positive rate disparity between Black and Other defendants in recidivism prediction is invariant to quantization: persists at FP32, INT8, and INT4 precision; bias is encoded in high-magnitude, quantization-stable neurons — making it resistant to post-training precision interventions; documents a safety-fairness tradeoff invisible to standard quantization benchmarks
 - **Agent goal drift detection system** — real-time monitoring for autonomous agent goal drift; all 3 evaluation scenarios passing; open-source
-- **Carbon-aware inference router** — safety-constrained routing with 45.5% carbon reduction and 100% fallback coverage; Zenodo preprint DOI: 10.5281/zenodo.19934620
+- **Carbon-aware inference router** — safety-constrained routing with 45.5% carbon reduction and 100% fallback coverage; Zenodo preprint DOI: 10.5281/zenodo.19934621
 
-**GitHub:** github.com/pretzelslab
+**Research repository:** github.com/pretzelslab/ai-safety-research/tree/main/womens_safety_adversarial  
+**Zenodo DOI:** 10.5281/zenodo.20028247  
+**GitHub:** github.com/pretzelslab  
 **Email:** rangchampak@gmail.com
