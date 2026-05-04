@@ -16,7 +16,8 @@ Produces a 4-layer threat taxonomy × 5 attack methods × 6 adversary access lev
 
 **Finding:** No existing governance framework requires passive-detection-only robustness testing. Every framework evaluates AI systems against cooperative users. ZIDR names and measures the gap.
 
-Primary artifact for Anthropic Fellows Program application.
+Primary artifact for Anthropic Fellows Program application.  
+**Zenodo DOI:** [10.5281/zenodo.20028247](https://doi.org/10.5281/zenodo.20028247)
 
 ---
 
@@ -36,7 +37,7 @@ A safety-constrained routing system that selects the smallest model capable of h
 
 **Eval results (50 test cases, 2026-05-02):** 45.5% carbon reduction vs always-large baseline · routing precision 100%/90%/100% across complexity tiers · P95 latency 0.09ms · 100% fallback reliability.
 
-Zenodo preprint DOI: [10.5281/zenodo.19934620](https://doi.org/10.5281/zenodo.19934620)
+Zenodo preprint DOI: [10.5281/zenodo.19934621](https://doi.org/10.5281/zenodo.19934621)
 
 ---
 

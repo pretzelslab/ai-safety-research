@@ -1,7 +1,8 @@
 # Adversarial Robustness in Women's Safety AI Systems
 
 **Researcher:** Preethi Raghuveeran | Independent AI Safety Researcher  
-**Status:** Active research — Phase 1 (Foundation)  
+**Status:** Complete ✅ — All 6 phases built and published  
+**Zenodo DOI:** [10.5281/zenodo.20028247](https://doi.org/10.5281/zenodo.20028247)  
 **Primary artifact for:** Anthropic Fellows Program · BlueDot Impact Frontier AI Governance
 
 ---
