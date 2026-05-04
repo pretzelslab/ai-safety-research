@@ -4,6 +4,9 @@ Independent research and evaluation frameworks for responsible AI deployment.
 
 Built by [Preethi Raghuveeran](https://preetibuilds-33d6f6da.vercel.app) — AI governance practitioner focused on operationalising fairness, safety, and compliance in production AI systems.
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20028247.svg)](https://doi.org/10.5281/zenodo.20028247) — Women's Safety Adversarial Robustness  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19934621.svg)](https://doi.org/10.5281/zenodo.19934621) — Carbon-Aware Inference Router
+
 ---
 
 ## Projects
