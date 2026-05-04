@@ -98,4 +98,4 @@ Raghuveeran, P. (2026). Carbon-Aware Inference Routing for Large Language Models
 **Repository:** github.com/pretzelslab/ai-safety-research/tree/main/womens_safety_adversarial  
 **Target programs:** Anthropic Fellows Program · BlueDot Impact Frontier AI Governance  
 **GitHub:** github.com/pretzelslab  
-**Email:** rangchampak@gmail.com
+**Email:** preeti.raghuveer@gmail.com
