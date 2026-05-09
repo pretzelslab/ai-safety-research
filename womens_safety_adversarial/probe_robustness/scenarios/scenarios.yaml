@@ -1,0 +1,295 @@
+# Scenario Library — Structured YAML
+# Source: threat_taxonomy/scenario_library/ (urban_scenarios.md + rural_scenarios.md)
+# All 13 scenarios confirmed by researcher review 2026-05-05
+#
+# Field reference:
+#   contexts: U1=urban public, U2=urban semi-private, R1=rural public, R2=rural isolated, T1=transit
+#   adversary_type: opportunistic | adaptive | informed
+#   access_level: L0=proximity only, L1=incidental contact, L2=full device, L3=environmental,
+#                 L4=system knowledge, L5=social leverage
+#   attack_methods: suppress | corrupt | spoof | exhaust | intercept
+#   subsystems_targeted: vision | audio | sensor_fusion | nlp | communication | response
+#   citation_status: needed | available | novel_flag
+
+scenarios:
+
+  # ── URBAN SCENARIOS ──────────────────────────────────────────────────────────
+
+  - id: "U-01"
+    name: "Mumbai Local Train, Peak Hours"
+    contexts: ["U1", "T1"]
+    threat_type: "transit_harassment"
+    adversary_type: "opportunistic"
+    access_level_min: 0
+    access_level_max: 0
+    attack_methods: ["suppress", "corrupt"]
+    subsystems_targeted: ["vision", "audio", "sensor_fusion"]
+    evasion_mechanism: >
+      Crowd density prevents CV proximity detection; train noise exceeds audio distress
+      threshold; accelerometer cannot distinguish groping from transit movement.
+    governance_gap_frameworks: ["EU_AI_ACT"]
+    all_frameworks_gap: true
+    novel_vector: false
+    governance_gap_note: >
+      No conformity assessment standard addresses sensor fusion in high-vibration,
+      high-noise transit environments.
+    citation_status: "needed"
+    citation_note: "NCRB Crime in India 2022, transport harassment statistics"
+
+  - id: "U-02"
+    name: "App-Based Cab, Night Route"
+    contexts: ["U1", "R2"]
+    threat_type: "cab_harassment"
+    adversary_type: "adaptive"
+    access_level_min: 1
+    access_level_max: 3
+    attack_methods: ["intercept", "spoof"]
+    subsystems_targeted: ["sensor_fusion", "vision", "audio"]
+    evasion_mechanism: >
+      Driver moves to low-signal area to corrupt GPS; phone placed face-down suppresses CV;
+      speaking calmly defeats audio stress detection until transition point.
+    governance_gap_frameworks: ["INDIA_DPDP"]
+    all_frameworks_gap: true
+    novel_vector: false
+    governance_gap_note: >
+      No framework requires location-spoofing resistance in personal safety apps;
+      DPDP Act covers data storage, not real-time attack surfaces.
+    citation_status: "needed"
+    citation_note: "Incident data on cab-based harassment, India 2022–2024"
+
+  - id: "U-03"
+    name: "Office / Workplace, Authority Figure"
+    contexts: ["U2"]
+    threat_type: "workplace_harassment"
+    adversary_type: "informed"
+    access_level_min: 4
+    access_level_max: 5
+    attack_methods: ["suppress"]
+    subsystems_targeted: []
+    evasion_mechanism: >
+      Alert never initiated — victim does not trigger because adversary holds employer
+      authority; fear of professional consequences outweighs the cost of triggering.
+    governance_gap_frameworks: ["EU_AI_ACT"]
+    all_frameworks_gap: true
+    novel_vector: false
+    governance_gap_note: >
+      No framework governs sociotechnical suppression; EU AI Act Annex III does not
+      classify workplace safety AI as high-risk.
+    citation_status: "needed"
+    citation_note: "iCall/iHuman — workplace harassment case patterns"
+
+  - id: "U-04"
+    name: "Street Market, Shoulder Bag Obstruction"
+    contexts: ["U1"]
+    threat_type: "street_following"
+    adversary_type: "opportunistic"
+    access_level_min: 0
+    access_level_max: 0
+    attack_methods: ["suppress"]
+    subsystems_targeted: ["vision", "audio"]
+    evasion_mechanism: >
+      Victim's bag or crowd bodies block phone camera angle; CV proximity detection fails;
+      audio baseline elevated by market noise.
+    governance_gap_frameworks: []
+    all_frameworks_gap: true
+    novel_vector: false
+    governance_gap_note: >
+      No standard requires CV robustness testing under real-world occlusion conditions.
+    citation_status: "needed"
+    citation_note: "Safetipin safety audit data — market contexts"
+
+  - id: "U-05"
+    name: "Bus Stop, Late Night — Exhaustion Attack"
+    contexts: ["U1"]
+    threat_type: "stalking"
+    adversary_type: "adaptive"
+    access_level_min: 0
+    access_level_max: 0
+    attack_methods: ["exhaust"]
+    subsystems_targeted: ["response"]
+    evasion_mechanism: >
+      Over previous weeks, adversary triggers false proximity alerts from this location;
+      victim's emergency contacts begin ignoring notifications — AI system works,
+      human response layer is defeated.
+    governance_gap_frameworks: []
+    all_frameworks_gap: true
+    novel_vector: true
+    governance_gap_note: >
+      No framework requires testing for alert exhaustion or contact response degradation
+      over time.
+    citation_status: "novel_flag"
+    citation_note: "No direct citation — novel attack vector"
+
+  - id: "U-06"
+    name: "College Campus, Known Acquaintance"
+    contexts: ["U2"]
+    threat_type: "campus_harassment"
+    adversary_type: "adaptive"
+    access_level_min: 1
+    access_level_max: 1
+    attack_methods: ["corrupt"]
+    subsystems_targeted: ["vision", "nlp"]
+    evasion_mechanism: >
+      Adversary has observed prior app behavior and stays at edge of detection confidence;
+      victim hesitates to trigger alert against a known person in an institutional setting.
+    governance_gap_frameworks: []
+    all_frameworks_gap: true
+    novel_vector: false
+    governance_gap_note: >
+      NLP check-in systems not tested for neutral-language threat framing;
+      social hesitation not addressed by any framework.
+    citation_status: "needed"
+    citation_note: "iCall — campus-context harassment patterns"
+
+  - id: "U-07"
+    name: "Social Venue / Party, Noise + Alcohol Context"
+    contexts: ["U2"]
+    threat_type: "social_venue_assault"
+    adversary_type: "opportunistic"
+    access_level_min: 0
+    access_level_max: 1
+    attack_methods: ["suppress", "corrupt"]
+    subsystems_targeted: ["audio", "vision"]
+    evasion_mechanism: >
+      Venue noise corrupts audio classification; crowded, dimly lit space defeats vision
+      proximity detection; victim's impairment raises threshold for triggering alert.
+    governance_gap_frameworks: []
+    all_frameworks_gap: true
+    novel_vector: true
+    governance_gap_note: >
+      No certification requires robustness testing in high-ambient-noise social
+      environments; impaired victim state not modeled in any standard.
+    citation_status: "needed"
+    citation_note: "Extrapolate from NCRB assault context data"
+
+  - id: "U-08"
+    name: "Public Toilet / Changing Area, Device Grab"
+    contexts: ["U1", "U2"]
+    threat_type: "device_grab"
+    adversary_type: "opportunistic"
+    access_level_min: 2
+    access_level_max: 2
+    attack_methods: ["intercept"]
+    subsystems_targeted: ["communication", "response"]
+    evasion_mechanism: >
+      Adversary grabs device before alert can be sent, or blocks the space while device
+      is out of reach — communication and response layers intercepted.
+    governance_gap_frameworks: []
+    all_frameworks_gap: true
+    novel_vector: true
+    governance_gap_note: >
+      No framework addresses physical device interception as a failure mode;
+      evidence preservation not certified.
+    citation_status: "novel_flag"
+    citation_note: "No direct citation — device-grab as suppression vector"
+
+  # ── RURAL SCENARIOS ──────────────────────────────────────────────────────────
+
+  - id: "R-01"
+    name: "Agricultural Field, Isolated Worker"
+    contexts: ["R2"]
+    threat_type: "rural_assault"
+    adversary_type: "adaptive"
+    access_level_min: 0
+    access_level_max: 3
+    attack_methods: ["intercept", "suppress"]
+    subsystems_targeted: ["communication"]
+    evasion_mechanism: >
+      No cellular signal — alert cannot transmit even if triggered; isolation removes
+      bystander deterrence; network dead zone is the primary attack surface.
+    governance_gap_frameworks: ["EU_AI_ACT", "NIST_AI_RMF", "INDIA_DPDP"]
+    all_frameworks_gap: true
+    novel_vector: false
+    governance_gap_note: >
+      No framework requires offline fallback capability; rural deployment not addressed
+      in EU AI Act or NIST AI RMF; India DPDP Act covers data, not connectivity failure.
+    citation_status: "needed"
+    citation_note: "NCRB — assault in agricultural/rural workplace settings"
+
+  - id: "R-02"
+    name: "Village Pathway, Dusk"
+    contexts: ["R1"]
+    threat_type: "pathway_assault"
+    adversary_type: "adaptive"
+    access_level_min: 0
+    access_level_max: 3
+    attack_methods: ["suppress"]
+    subsystems_targeted: ["vision", "response"]
+    evasion_mechanism: >
+      Darkness defeats CV; adversary knows victim's route and timing through environmental
+      familiarity; audio baseline is low but bystander likelihood is also near zero.
+    governance_gap_frameworks: []
+    all_frameworks_gap: true
+    novel_vector: false
+    governance_gap_note: >
+      No standard certifies CV performance under low-light rural conditions;
+      Safetipin data shows lighting as primary safety gap in rural pathways.
+    citation_status: "needed"
+    citation_note: "Safetipin rural lighting audit data"
+
+  - id: "R-03"
+    name: "Isolated Road Between Villages, Moving Vehicle"
+    contexts: ["R2", "T1"]
+    threat_type: "rural_transit_assault"
+    adversary_type: "informed"
+    access_level_min: 0
+    access_level_max: 2
+    attack_methods: ["intercept", "corrupt"]
+    subsystems_targeted: ["sensor_fusion", "communication"]
+    evasion_mechanism: >
+      Route passes through signal dead zone — adversary with local knowledge times
+      action to this window; GPS fix lost; no alert can transmit.
+    governance_gap_frameworks: ["CROSS_JURISDICTIONAL"]
+    all_frameworks_gap: false
+    novel_vector: false
+    governance_gap_note: >
+      No state-level framework coordinates rural connectivity requirements with
+      safety app certification; cross-jurisdictional gap.
+    citation_status: "needed"
+    citation_note: "NCRB — transit harassment, rural state data"
+
+  - id: "R-04"
+    name: "Village Common / Weekly Market, Community Authority"
+    contexts: ["R1"]
+    threat_type: "community_authority_harassment"
+    adversary_type: "informed"
+    access_level_min: 4
+    access_level_max: 5
+    attack_methods: ["suppress"]
+    subsystems_targeted: []
+    evasion_mechanism: >
+      Victim does not trigger alert because adversary holds community authority;
+      bystanders are socially conditioned not to intervene; triggering a public alert
+      against a community authority figure carries reputational cost that exceeds
+      perceived protection benefit.
+    governance_gap_frameworks: ["INDIA_IT_ACT"]
+    all_frameworks_gap: true
+    novel_vector: false
+    governance_gap_note: >
+      Sociotechnical suppression absent from all frameworks; India IT Act addresses
+      digital harm, not social suppression of safety systems.
+    citation_status: "needed"
+    citation_note: "iCall/iHuman — rural authority figure case patterns"
+
+  - id: "R-05"
+    name: "Agricultural Employer Context, Seasonal Labour"
+    contexts: ["R1", "R2"]
+    threat_type: "employer_coercion"
+    adversary_type: "informed"
+    access_level_min: 4
+    access_level_max: 5
+    attack_methods: ["suppress"]
+    subsystems_targeted: ["response", "vision", "audio"]
+    evasion_mechanism: >
+      Employer has authority over victim's livelihood and housing; economic dependency
+      raises threshold for triggering alert; employer may have incidental device access
+      (charging, storage) enabling secondary suppression of vision/audio.
+    governance_gap_frameworks: ["CROSS_JURISDICTIONAL"]
+    all_frameworks_gap: true
+    novel_vector: true
+    governance_gap_note: >
+      Economic coercion as suppression vector not addressed by any framework;
+      labour law and safety app certification exist in completely separate regulatory
+      silos.
+    citation_status: "novel_flag"
+    citation_note: "No direct citation — novel sociotechnical vector"

@@ -1,0 +1,51 @@
+# Default scoring weights by scenario threat type.
+# Source: evaluation_criteria.md — "Default weights by scenario type"
+# Weights sum to 1.0 per category.
+
+threat_type_map:
+  transit_harassment:            crowded_transit
+  street_following:              crowded_transit
+  stalking:                      crowded_transit
+  device_grab:                   crowded_transit
+  social_venue_assault:          semi_private_authority
+  cab_harassment:                isolated_vehicle
+  rural_transit_assault:         isolated_vehicle
+  workplace_harassment:          semi_private_authority
+  campus_harassment:             semi_private_authority
+  community_authority_harassment: semi_private_authority
+  employer_coercion:             rural_isolated
+  rural_assault:                 rural_isolated
+  pathway_assault:               rural_isolated
+
+weights:
+  crowded_transit:
+    description: "Crowded transit or public space (groping, street harassment)"
+    vision:         0.25
+    audio:          0.30
+    sensor_fusion:  0.25
+    nlp:            0.05
+    zidr:           0.15
+
+  isolated_vehicle:
+    description: "Isolated vehicle or transport (cab, rural transit)"
+    vision:         0.15
+    audio:          0.20
+    sensor_fusion:  0.35
+    nlp:            0.10
+    zidr:           0.20
+
+  semi_private_authority:
+    description: "Semi-private space with authority asymmetry (workplace, campus, venue)"
+    vision:         0.15
+    audio:          0.15
+    sensor_fusion:  0.15
+    nlp:            0.35
+    zidr:           0.20
+
+  rural_isolated:
+    description: "Rural or isolated context (field, pathway, dead zone)"
+    vision:         0.10
+    audio:          0.15
+    sensor_fusion:  0.45
+    nlp:            0.05
+    zidr:           0.25

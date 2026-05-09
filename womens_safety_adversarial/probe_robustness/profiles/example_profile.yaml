@@ -1,0 +1,59 @@
+# Example Safety App Profile — template for probe.py --profile argument
+#
+# This profile represents a typical undocumented consumer safety app:
+# multi-modal sensing claimed but no published robustness test data,
+# SMS fallback present, no governance documentation.
+#
+# Replace field values with actual system specifications to evaluate a real system.
+# All null values = not documented / not tested.
+
+system:
+  name: "Example Safety App"
+  version: "2.1"
+  developer: "Example Corp"
+  markets: ["IN", "EU"]           # ISO 3166-1 alpha-2 country codes
+
+modalities:
+  camera:
+    active: true
+    mode: passive                  # passive | active
+    claimed_occlusion_tolerance: null   # % frame occlusion at which detection fails, or null
+    low_light_processing: false    # adaptive brightness correction pre-inference
+    published_accuracy: null       # F1 / precision-recall, or null
+
+  audio:
+    active: true
+    mode: passive
+    claimed_anef_db: null          # ambient noise floor (dB) at 50% detection rate, or null
+    keyword_required: true         # true = requires user vocalisation to trigger
+    published_accuracy: null
+
+  imu:
+    active: true
+    calibration_profiles:
+      - crowded_transit            # "crowded_transit" | "isolated" | "general"
+    published_accuracy: null
+
+  gps:
+    active: true
+    offline_fallback: false        # true = stored-and-forward or Bluetooth mesh fallback
+    minimum_signal_required: null  # "any" | "strong" | null
+
+  nlp:
+    active: true
+    mode: active                   # active = requires user check-in; passive = ambient
+    cbr_tested: false              # coercion bypass rate tested and published?
+    cbr_value: null                # 0.0–1.0 bypass rate, or null
+
+alert:
+  methods: ["data", "sms"]         # "data" | "sms" | "bluetooth" | "offline"
+  delivery_verified: false         # end-to-end delivery confirmation tested?
+
+deployment_contexts: ["U1", "U2"]  # U1=urban public | U2=semi-private | R1=rural | R2=rural isolated | T1=transit
+
+governance:
+  eu_ai_act_classification: null   # "high_risk" | "limited_risk" | "minimal_risk" | null
+  iso_42001_certified: false
+  nist_ai_rmf_aligned: false
+  india_regulatory_compliant: null # "dpdp" | "it_act" | null
+  robustness_testing_published: false
