@@ -7,7 +7,7 @@ Each scenario covers: Setting · Adversary subtype · Attack method · Access le
 
 ## U-01 — Mumbai Local Train, Peak Hours
 **Context:** U1 (urban public), T1 (transit)  
-**Setting:** Crowded women's compartment; adversary enters at station stop  
+**Setting:** Crowded general compartment; adversary enters at station stop  
 **Adversary:** Opportunistic (L0)  
 **Attack method:** Suppress + Corrupt  
 **Evasion:** Crowd density prevents CV proximity detection; train noise exceeds audio distress threshold; accelerometer cannot distinguish groping from transit movement  
