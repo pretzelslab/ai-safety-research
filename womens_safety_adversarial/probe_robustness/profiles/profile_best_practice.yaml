@@ -1,0 +1,60 @@
+# System C — Best-Practice Robustness
+#
+# Represents a hypothetical best-practice system meeting all current governance requirements
+# and publishing adversarial robustness data. Low-light processing, passive audio, offline
+# fallback, CBR-tested NLP, EU high-risk classification. This profile represents the
+# upper-bound of what current technology and governance frameworks can achieve.
+# Benchmark archetype: best-practice ceiling.
+
+system:
+  name: "System C — Best-Practice Robustness"
+  version: "1.0"
+  developer: "SafetyAI Research Lab"
+  markets: ["IN", "EU", "GB", "US"]
+
+modalities:
+  camera:
+    active: true
+    mode: passive
+    claimed_occlusion_tolerance: 0.65   # 65% frame occlusion — handles dense crowds
+    low_light_processing: true          # adaptive brightness correction
+    published_accuracy: 0.89
+
+  audio:
+    active: true
+    mode: passive
+    claimed_anef_db: 85.0               # 85dB — handles transit and venue noise
+    keyword_required: false             # passive detection — no user vocalisation needed
+    published_accuracy: 0.84
+
+  imu:
+    active: true
+    calibration_profiles:
+      - general
+      - crowded_transit
+      - isolated
+    published_accuracy: 0.81
+
+  gps:
+    active: true
+    offline_fallback: true              # stored-and-forward SMS in dead zones
+    minimum_signal_required: "any"     # degrades gracefully under weak signal
+
+  nlp:
+    active: true
+    mode: passive                       # ambient passive monitoring
+    cbr_tested: true                    # coercion bypass rate tested and published
+    cbr_value: 0.22                     # 22% bypass rate under coercive framing
+
+alert:
+  methods: ["data", "sms", "offline"]
+  delivery_verified: true
+
+deployment_contexts: ["U1", "U2", "U3", "R1", "R2", "T1"]  # all contexts
+
+governance:
+  eu_ai_act_classification: "high_risk"    # proactively classified high-risk
+  iso_42001_certified: true
+  nist_ai_rmf_aligned: true
+  india_regulatory_compliant: "dpdp"
+  robustness_testing_published: true        # adversarial robustness evidence published

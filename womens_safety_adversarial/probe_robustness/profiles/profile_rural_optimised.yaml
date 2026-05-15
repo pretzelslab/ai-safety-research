@@ -1,0 +1,60 @@
+# System D — Rural-Optimised (Connectivity-First)
+#
+# Represents a lightweight app designed specifically for rural, low-connectivity
+# contexts in India. No camera (battery/bandwidth constraints). Bluetooth mesh
+# and stored-and-forward SMS for offline alert delivery. Optimised for NCRB-documented
+# rural threat patterns (agricultural contexts, isolated pathways, dead zones).
+# Trades urban sensing capability for rural connectivity resilience.
+# Benchmark archetype: rural-optimised, urban-deficient.
+
+system:
+  name: "System D — Rural-Optimised"
+  version: "1.2"
+  developer: "ConnectSafe India"
+  markets: ["IN"]
+
+modalities:
+  camera:
+    active: false                       # disabled — battery/connectivity constraints
+    mode: passive
+    claimed_occlusion_tolerance: null
+    low_light_processing: false
+    published_accuracy: null
+
+  audio:
+    active: true
+    mode: passive
+    claimed_anef_db: 65.0               # calibrated for quiet rural baseline
+    keyword_required: false             # passive — no vocalisation required
+    published_accuracy: 0.76
+
+  imu:
+    active: true
+    calibration_profiles:
+      - isolated
+      - general
+    published_accuracy: 0.73
+
+  gps:
+    active: true
+    offline_fallback: true              # primary design priority — Bluetooth mesh + SMS
+    minimum_signal_required: "any"
+
+  nlp:
+    active: false                       # disabled — lightweight deployment
+    mode: active
+    cbr_tested: false
+    cbr_value: null
+
+alert:
+  methods: ["data", "sms", "bluetooth", "offline"]
+  delivery_verified: true
+
+deployment_contexts: ["R1", "R2", "T1"]  # rural and transit contexts
+
+governance:
+  eu_ai_act_classification: null        # India-only deployment
+  iso_42001_certified: false
+  nist_ai_rmf_aligned: true
+  india_regulatory_compliant: "it_act"
+  robustness_testing_published: true    # published for rural deployment contexts

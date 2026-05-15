@@ -1,0 +1,57 @@
+# System A — Undocumented Baseline
+#
+# Represents a typical consumer-grade women's safety app available in India/EU.
+# Multi-modal sensing claimed by the vendor; no published robustness test data.
+# Standard SMS fallback; no governance documentation or adversarial test evidence.
+# Benchmark archetype: undocumented baseline.
+
+system:
+  name: "System A — Undocumented Baseline"
+  version: "2.1"
+  developer: "Baseline Corp"
+  markets: ["IN", "EU"]
+
+modalities:
+  camera:
+    active: true
+    mode: passive
+    claimed_occlusion_tolerance: null    # not documented
+    low_light_processing: false
+    published_accuracy: null
+
+  audio:
+    active: true
+    mode: passive
+    claimed_anef_db: null               # not documented
+    keyword_required: true              # requires user vocalisation to trigger
+    published_accuracy: null
+
+  imu:
+    active: true
+    calibration_profiles:
+      - general
+    published_accuracy: null
+
+  gps:
+    active: true
+    offline_fallback: false             # no rural dead-zone fallback
+    minimum_signal_required: null
+
+  nlp:
+    active: true
+    mode: active                        # requires user check-in
+    cbr_tested: false
+    cbr_value: null
+
+alert:
+  methods: ["data", "sms"]
+  delivery_verified: false
+
+deployment_contexts: ["U1", "U2", "T1"]  # urban-only deployment
+
+governance:
+  eu_ai_act_classification: null
+  iso_42001_certified: false
+  nist_ai_rmf_aligned: false
+  india_regulatory_compliant: null
+  robustness_testing_published: false

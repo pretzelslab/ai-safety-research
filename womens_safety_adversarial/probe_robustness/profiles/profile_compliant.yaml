@@ -1,0 +1,58 @@
+# System B — Governance-Compliant, Robustness-Untested
+#
+# Represents an urban-focused app with governance certification (ISO 42001, EU limited-risk)
+# and published accuracy figures, but no adversarial robustness testing beyond standard
+# benchmarks. Compliant with data regulations; no offline fallback; urban deployment only.
+# Benchmark archetype: governance-certified but not robustness-tested.
+
+system:
+  name: "System B — Governance-Compliant"
+  version: "3.4"
+  developer: "ComplianceTech Ltd"
+  markets: ["IN", "EU", "GB"]
+
+modalities:
+  camera:
+    active: true
+    mode: passive
+    claimed_occlusion_tolerance: 0.30   # 30% frame occlusion — below crowd-density threshold
+    low_light_processing: false         # standard camera only
+    published_accuracy: 0.72            # F1 under lab conditions
+
+  audio:
+    active: true
+    mode: passive
+    claimed_anef_db: 70.0               # 70dB ambient noise floor — fails at 85dB urban/transit
+    keyword_required: true              # requires user vocalisation
+    published_accuracy: 0.68
+
+  imu:
+    active: true
+    calibration_profiles:
+      - general
+      - crowded_transit
+    published_accuracy: 0.71
+
+  gps:
+    active: true
+    offline_fallback: false             # connectivity-dependent — no rural fallback
+    minimum_signal_required: "strong"
+
+  nlp:
+    active: true
+    mode: active                        # requires user check-in
+    cbr_tested: false                   # coercion bypass rate not tested
+    cbr_value: null
+
+alert:
+  methods: ["data", "sms"]
+  delivery_verified: true              # end-to-end delivery tested
+
+deployment_contexts: ["U1", "U2", "T1"]  # urban-only
+
+governance:
+  eu_ai_act_classification: "limited_risk"   # not classified high-risk
+  iso_42001_certified: true
+  nist_ai_rmf_aligned: true
+  india_regulatory_compliant: "dpdp"
+  robustness_testing_published: true         # published accuracy, not adversarial robustness

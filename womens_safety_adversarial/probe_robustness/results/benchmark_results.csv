@@ -1,0 +1,57 @@
+system,system_name,scenario_id,scenario_name,zidr,overall,risk_level,governance_flags,weight_category
+A,System A — Undocumented Baseline,U-01,"Mumbai Local Train, Peak Hours",0.25,0.25,CRITICAL,5,crowded_transit
+A,System A — Undocumented Baseline,U-02,"App-Based Cab, Night Route",0.12,0.26,CRITICAL,5,isolated_vehicle
+A,System A — Undocumented Baseline,U-03,"Office / Workplace, Authority Figure",0.27,0.19,CRITICAL,5,semi_private_authority
+A,System A — Undocumented Baseline,U-04,"Street Market, Shoulder Bag Obstruction",0.38,0.26,CRITICAL,5,crowded_transit
+A,System A — Undocumented Baseline,U-05,"Bus Stop, Late Night — Exhaustion Attack",0.38,0.26,CRITICAL,4,crowded_transit
+A,System A — Undocumented Baseline,U-06,"College Campus, Known Acquaintance",0.5,0.19,CRITICAL,4,semi_private_authority
+A,System A — Undocumented Baseline,U-07,"Social Venue / Party, Noise + Alcohol Context",0.5,0.19,CRITICAL,5,semi_private_authority
+A,System A — Undocumented Baseline,U-08,"Public Toilet / Changing Area, Device Grab",0.38,0.26,CRITICAL,4,crowded_transit
+A,System A — Undocumented Baseline,U-09,"Urban Transit Confinement, Delayed Intervention",0.12,0.38,CRITICAL,5,isolated_vehicle
+A,System A — Undocumented Baseline,R-01,"Agricultural Field, Isolated Worker",0.75,0.47,HIGH RISK,6,rural_isolated
+A,System A — Undocumented Baseline,R-02,"Village Pathway, Dusk",0.92,0.53,HIGH RISK,6,rural_isolated
+A,System A — Undocumented Baseline,R-03,"Isolated Road Between Villages, Moving Vehicle",0.0,0.28,CRITICAL,5,isolated_vehicle
+A,System A — Undocumented Baseline,R-04,"Village Common / Weekly Market, Community Authority",0.93,0.43,HIGH RISK,6,semi_private_authority
+A,System A — Undocumented Baseline,R-05,"Agricultural Employer Context, Seasonal Labour",0.75,0.47,HIGH RISK,6,rural_isolated
+B,System B — Governance-Compliant,U-01,"Mumbai Local Train, Peak Hours",0.25,0.43,HIGH RISK,1,crowded_transit
+B,System B — Governance-Compliant,U-02,"App-Based Cab, Night Route",0.12,0.43,HIGH RISK,2,isolated_vehicle
+B,System B — Governance-Compliant,U-03,"Office / Workplace, Authority Figure",0.29,0.25,CRITICAL,1,semi_private_authority
+B,System B — Governance-Compliant,U-04,"Street Market, Shoulder Bag Obstruction",0.38,0.45,HIGH RISK,1,crowded_transit
+B,System B — Governance-Compliant,U-05,"Bus Stop, Late Night — Exhaustion Attack",0.38,0.45,HIGH RISK,1,crowded_transit
+B,System B — Governance-Compliant,U-06,"College Campus, Known Acquaintance",0.5,0.25,CRITICAL,1,semi_private_authority
+B,System B — Governance-Compliant,U-07,"Social Venue / Party, Noise + Alcohol Context",0.5,0.25,CRITICAL,1,semi_private_authority
+B,System B — Governance-Compliant,U-08,"Public Toilet / Changing Area, Device Grab",0.38,0.45,HIGH RISK,1,crowded_transit
+B,System B — Governance-Compliant,U-09,"Urban Transit Confinement, Delayed Intervention",0.12,0.45,HIGH RISK,1,isolated_vehicle
+B,System B — Governance-Compliant,R-01,"Agricultural Field, Isolated Worker",0.75,0.56,HIGH RISK,2,rural_isolated
+B,System B — Governance-Compliant,R-02,"Village Pathway, Dusk",0.93,0.62,MODERATE,2,rural_isolated
+B,System B — Governance-Compliant,R-03,"Isolated Road Between Villages, Moving Vehicle",0.0,0.36,CRITICAL,2,isolated_vehicle
+B,System B — Governance-Compliant,R-04,"Village Common / Weekly Market, Community Authority",0.94,0.47,HIGH RISK,2,semi_private_authority
+B,System B — Governance-Compliant,R-05,"Agricultural Employer Context, Seasonal Labour",0.75,0.56,HIGH RISK,2,rural_isolated
+C,System C — Best-Practice Robustness,U-01,"Mumbai Local Train, Peak Hours",0.25,0.59,HIGH RISK,0,crowded_transit
+C,System C — Best-Practice Robustness,U-02,"App-Based Cab, Night Route",0.12,0.61,MODERATE,0,isolated_vehicle
+C,System C — Best-Practice Robustness,U-03,"Office / Workplace, Authority Figure",0.33,0.63,MODERATE,0,semi_private_authority
+C,System C — Best-Practice Robustness,U-04,"Street Market, Shoulder Bag Obstruction",0.38,0.61,MODERATE,0,crowded_transit
+C,System C — Best-Practice Robustness,U-05,"Bus Stop, Late Night — Exhaustion Attack",0.38,0.61,MODERATE,0,crowded_transit
+C,System C — Best-Practice Robustness,U-06,"College Campus, Known Acquaintance",0.5,0.63,MODERATE,0,semi_private_authority
+C,System C — Best-Practice Robustness,U-07,"Social Venue / Party, Noise + Alcohol Context",0.5,0.63,MODERATE,0,semi_private_authority
+C,System C — Best-Practice Robustness,U-08,"Public Toilet / Changing Area, Device Grab",0.38,0.61,MODERATE,0,crowded_transit
+C,System C — Best-Practice Robustness,U-09,"Urban Transit Confinement, Delayed Intervention",0.12,0.61,MODERATE,0,isolated_vehicle
+C,System C — Best-Practice Robustness,R-01,"Agricultural Field, Isolated Worker",0.75,0.78,MODERATE,0,rural_isolated
+C,System C — Best-Practice Robustness,R-02,"Village Pathway, Dusk",0.95,0.84,LOW RISK,0,rural_isolated
+C,System C — Best-Practice Robustness,R-03,"Isolated Road Between Villages, Moving Vehicle",0.0,0.59,HIGH RISK,0,isolated_vehicle
+C,System C — Best-Practice Robustness,R-04,"Village Common / Weekly Market, Community Authority",0.95,0.73,MODERATE,0,semi_private_authority
+C,System C — Best-Practice Robustness,R-05,"Agricultural Employer Context, Seasonal Labour",0.75,0.78,MODERATE,0,rural_isolated
+D,System D — Rural-Optimised,U-01,"Mumbai Local Train, Peak Hours",0.33,0.4,HIGH RISK,1,crowded_transit
+D,System D — Rural-Optimised,U-02,"App-Based Cab, Night Route",0.17,0.41,HIGH RISK,1,isolated_vehicle
+D,System D — Rural-Optimised,U-03,"Office / Workplace, Authority Figure",0.28,0.49,HIGH RISK,1,semi_private_authority
+D,System D — Rural-Optimised,U-04,"Street Market, Shoulder Bag Obstruction",0.5,0.43,HIGH RISK,1,crowded_transit
+D,System D — Rural-Optimised,U-05,"Bus Stop, Late Night — Exhaustion Attack",0.5,0.43,HIGH RISK,1,crowded_transit
+D,System D — Rural-Optimised,U-06,"College Campus, Known Acquaintance",0.5,0.49,HIGH RISK,1,semi_private_authority
+D,System D — Rural-Optimised,U-07,"Social Venue / Party, Noise + Alcohol Context",0.5,0.49,HIGH RISK,1,semi_private_authority
+D,System D — Rural-Optimised,U-08,"Public Toilet / Changing Area, Device Grab",0.5,0.43,HIGH RISK,1,crowded_transit
+D,System D — Rural-Optimised,U-09,"Urban Transit Confinement, Delayed Intervention",0.17,0.46,HIGH RISK,1,isolated_vehicle
+D,System D — Rural-Optimised,R-01,"Agricultural Field, Isolated Worker",0.67,0.64,MODERATE,1,rural_isolated
+D,System D — Rural-Optimised,R-02,"Village Pathway, Dusk",0.92,0.74,MODERATE,1,rural_isolated
+D,System D — Rural-Optimised,R-03,"Isolated Road Between Villages, Moving Vehicle",0.0,0.41,HIGH RISK,1,isolated_vehicle
+D,System D — Rural-Optimised,R-04,"Village Common / Weekly Market, Community Authority",0.93,0.69,MODERATE,1,semi_private_authority
+D,System D — Rural-Optimised,R-05,"Agricultural Employer Context, Seasonal Labour",0.67,0.64,MODERATE,1,rural_isolated

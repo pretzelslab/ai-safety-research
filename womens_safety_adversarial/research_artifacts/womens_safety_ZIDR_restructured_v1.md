@@ -340,13 +340,3 @@ The full structured scenario library (YAML format, machine-readable for probe to
 
 ---
 
-**Editorial notes:**
-- Figure 1 (taxonomy heatmap) ✅ — Section 3.3
-- Figure 2 (ZIDR timeline) ✅ — Section 5.3
-- Figure 3 (ZIDR vs accuracy comparison) — planned for Overleaf/publication version
-- Figure 4 (governance gap radar chart) — planned for Overleaf/publication version
-- Figure 5 (probe tool architecture) — planned for Overleaf/publication version
-- Table 1: Layer definitions (Section 3.2) ✓
-- Table 2: Adversary access levels (Section 3.3) ✓
-- Table 3: ZIDR vs. existing metrics (Section 5.2) ✓
-- Table 4: Framework governance gap matrix (Section 6.1) ✓

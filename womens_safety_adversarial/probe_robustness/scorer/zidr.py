@@ -22,6 +22,7 @@ _FUNCTIONAL_AT_L0: dict[str, dict[str, bool | None]] = {
     "camera": {
         "U1": False,  # crowd occlusion trivially achieved at L0
         "U2": None,   # depends on lighting — marginal
+        "U3": False,  # confinement: device obstructed or in adversary's control
         "R1": True,   # open space, clear sightlines
         "R2": True,   # open space, clear sightlines
         "T1": False,  # transit crowd occlusion at L0
@@ -29,6 +30,7 @@ _FUNCTIONAL_AT_L0: dict[str, dict[str, bool | None]] = {
     "audio": {
         "U1": False,  # ambient noise suppression at L0 (85 dB)
         "U2": False,  # adversary controls venue ambient noise
+        "U3": False,  # vehicle noise + physical suppression defeat audio
         "R1": True,   # low ambient — detectable unless adversary vocalises
         "R2": True,   # quiet rural
         "T1": False,  # transit noise defeats audio at L0
@@ -36,6 +38,7 @@ _FUNCTIONAL_AT_L0: dict[str, dict[str, bool | None]] = {
     "imu": {
         "U1": None,   # urban crowd vibration — marginal
         "U2": None,   # venue-dependent — marginal
+        "U3": None,   # moving vehicle vibration — marginal (similar to T1)
         "R1": True,   # open terrain, low vibration
         "R2": True,   # open terrain, low vibration
         "T1": False,  # vehicle vibration corrupts baseline at L0
@@ -43,6 +46,7 @@ _FUNCTIONAL_AT_L0: dict[str, dict[str, bool | None]] = {
     "gps": {
         "U1": True,   # GPS typically available in urban
         "U2": True,   # GPS available
+        "U3": False,  # deliberate GPS corruption (corrupt prior 0.75); treated as defeated
         "R1": True,   # available (may be weak signal)
         "R2": False,  # dead zone — exploitable at L0 with local knowledge
         "T1": True,   # typically available

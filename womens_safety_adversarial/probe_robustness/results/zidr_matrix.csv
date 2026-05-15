@@ -1,0 +1,15 @@
+scenario_id,scenario_name,Baseline (A),Compliant (B),Best Practice (C),Rural-Opt (D),avg_zidr
+R-01,"Agricultural Field, Isolated Worker",0.750,0.750,0.750,0.670,0.730
+R-02,"Village Pathway, Dusk",0.920,0.930,0.950,0.920,0.930
+R-03,"Isolated Road Between Villages, Moving Vehicle",0.000,0.000,0.000,0.000,0.000
+R-04,"Village Common / Weekly Market, Community Authority",0.930,0.940,0.950,0.930,0.938
+R-05,"Agricultural Employer Context, Seasonal Labour",0.750,0.750,0.750,0.670,0.730
+U-01,"Mumbai Local Train, Peak Hours",0.250,0.250,0.250,0.330,0.270
+U-02,"App-Based Cab, Night Route",0.120,0.120,0.120,0.170,0.132
+U-03,"Office / Workplace, Authority Figure",0.270,0.290,0.330,0.280,0.293
+U-04,"Street Market, Shoulder Bag Obstruction",0.380,0.380,0.380,0.500,0.410
+U-05,"Bus Stop, Late Night — Exhaustion Attack",0.380,0.380,0.380,0.500,0.410
+U-06,"College Campus, Known Acquaintance",0.500,0.500,0.500,0.500,0.500
+U-07,"Social Venue / Party, Noise + Alcohol Context",0.500,0.500,0.500,0.500,0.500
+U-08,"Public Toilet / Changing Area, Device Grab",0.380,0.380,0.380,0.500,0.410
+U-09,"Urban Transit Confinement, Delayed Intervention",0.120,0.120,0.120,0.170,0.132

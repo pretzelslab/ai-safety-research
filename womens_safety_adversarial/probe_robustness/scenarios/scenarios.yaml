@@ -1,295 +1,860 @@
 # Scenario Library — Structured YAML
 # Source: threat_taxonomy/scenario_library/ (urban_scenarios.md + rural_scenarios.md)
-# All 13 scenarios confirmed by researcher review 2026-05-05
+# All 14 scenarios confirmed by researcher review 2026-05-14
+# (13 original + U-09 Urban Transit Confinement added 2026-05-14)
 #
 # Field reference:
-#   contexts: U1=urban public, U2=urban semi-private, R1=rural public, R2=rural isolated, T1=transit
+#   context_codes: U1=urban public | U2=urban semi-private | U3=urban isolated confinement
+#                  R1=rural public | R2=rural isolated | T1=transit
 #   adversary_type: opportunistic | adaptive | informed
-#   access_level: L0=proximity only, L1=incidental contact, L2=full device, L3=environmental,
-#                 L4=system knowledge, L5=social leverage
+#   adversary_access_level: L0=proximity only | L1=incidental contact | L2=full device access
+#                           L3=environmental control | L4=system knowledge | L5=social leverage
 #   attack_methods: suppress | corrupt | spoof | exhaust | intercept
-#   subsystems_targeted: vision | audio | sensor_fusion | nlp | communication | response
-#   citation_status: needed | available | novel_flag
+#   failure_mode_type: sensing_failure | communication_failure | response_failure |
+#                      sociotechnical_suppression
+#   confidence_level: high | medium | low
+#   test_reproducibility: high | medium | low
+#   time_horizon: immediate | long-term
+#
+# ── BENCHMARK PRIORS NOTICE ─────────────────────────────────────────────────
+# degradation_factors are INITIAL BENCHMARK PRIORS for reproducible testing.
+# They are NOT empirically measured real-world values. They represent principled
+# estimates intended to enable consistent, comparable evaluation runs. Values
+# are expected to be revised as empirical data becomes available.
+# ────────────────────────────────────────────────────────────────────────────
 
 scenarios:
 
-  # ── URBAN SCENARIOS ──────────────────────────────────────────────────────────
+  # ── URBAN SCENARIOS ────────────────────────────────────────────────────────
 
-  - id: "U-01"
-    name: "Mumbai Local Train, Peak Hours"
-    contexts: ["U1", "T1"]
-    threat_type: "transit_harassment"
-    adversary_type: "opportunistic"
-    access_level_min: 0
-    access_level_max: 0
-    attack_methods: ["suppress", "corrupt"]
-    subsystems_targeted: ["vision", "audio", "sensor_fusion"]
-    evasion_mechanism: >
-      Crowd density prevents CV proximity detection; train noise exceeds audio distress
-      threshold; accelerometer cannot distinguish groping from transit movement.
-    governance_gap_frameworks: ["EU_AI_ACT"]
-    all_frameworks_gap: true
-    novel_vector: false
-    governance_gap_note: >
-      No conformity assessment standard addresses sensor fusion in high-vibration,
-      high-noise transit environments.
-    citation_status: "needed"
-    citation_note: "NCRB Crime in India 2022, transport harassment statistics"
+  - scenario_id: "U-01"
+    scenario_name: "Mumbai Local Train, Peak Hours"
+    context_class:
+      geography: urban
+      subtype: transit_public
+      context_code: ["U1", "T1"]
+    scenario_narrative: >
+      Adversary gropes victim in a crowded general compartment during peak hours.
+      The act occurs while the phone is in a bag or pocket. Crowd density blocks
+      camera visibility, train noise exceeds distress thresholds, and vibration
+      masks accelerometer anomaly detection. All passive sensing layers fail
+      simultaneously — no alert is triggered without victim-initiated action.
+    attack_profile:
+      adversary_type: opportunistic
+      adversary_access_level: L0
+      attack_methods: [suppress, corrupt]
+    failure_mode_type: [sensing_failure]
+    passive_layers: [vision, audio, sensor_fusion]
+    benchmark:
+      window_seconds: 5
+      degradation_factors:
+        suppress:
+          vision: 0.85
+          audio: 0.75
+          sensor_fusion: 0.70
+        corrupt:
+          vision: 0.80
+          audio: 0.70
+          sensor_fusion: 0.65
+      expected_zidr_range:
+        min: 0.05
+        max: 0.25
+    metadata:
+      criticality_score: 5
+      criticality_definition: >
+        Complete alert failure during high-risk event with no fallback path.
+      confidence_level: high
+      calibration_note: >
+        Suppress priors reflect measured crowd occlusion rates in Indian transit;
+        corrupt priors model train vibration on accelerometer baseline. Values to
+        be updated with field measurements from Mumbai local train density data.
+      test_reproducibility: high
+      time_horizon: immediate
+      novel_attack_vector: false
+      sociotechnical_attack: false
+    evidence_basis:
+      primary:
+        - "NCRB Crime in India 2022 — transport harassment statistics"
+      secondary:
+        - "Safetipin urban transit safety audit data"
+      inferred: []
+    governance_gap:
+      missing_requirements:
+        - "No conformity assessment standard addresses sensor fusion in high-vibration, high-noise transit environments"
+        - "No testing protocol for crowd-density-induced CV occlusion in personal safety systems"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, INDIA_DPDP, ISO_42001]
 
-  - id: "U-02"
-    name: "App-Based Cab, Night Route"
-    contexts: ["U1", "R2"]
-    threat_type: "cab_harassment"
-    adversary_type: "adaptive"
-    access_level_min: 1
-    access_level_max: 3
-    attack_methods: ["intercept", "spoof"]
-    subsystems_targeted: ["sensor_fusion", "vision", "audio"]
-    evasion_mechanism: >
-      Driver moves to low-signal area to corrupt GPS; phone placed face-down suppresses CV;
-      speaking calmly defeats audio stress detection until transition point.
-    governance_gap_frameworks: ["INDIA_DPDP"]
-    all_frameworks_gap: true
-    novel_vector: false
-    governance_gap_note: >
-      No framework requires location-spoofing resistance in personal safety apps;
-      DPDP Act covers data storage, not real-time attack surfaces.
-    citation_status: "needed"
-    citation_note: "Incident data on cab-based harassment, India 2022–2024"
+  - scenario_id: "U-02"
+    scenario_name: "App-Based Cab, Night Route"
+    context_class:
+      geography: urban
+      subtype: cab_transit
+      context_code: ["U1", "R2"]
+    scenario_narrative: >
+      Adversary is the driver. Route deviates from the expected path after the victim
+      is already inside the vehicle. The adversary moves to a low-signal area, places
+      the phone face-down or in a holder, and speaks calmly to avoid triggering audio
+      stress detection while route deviation continues. GPS spoofing and communication
+      interception prevent alert transmission and route-deviation reporting.
+    attack_profile:
+      adversary_type: adaptive
+      adversary_access_level: L1
+      attack_methods: [intercept, spoof]
+    failure_mode_type: [sensing_failure, communication_failure]
+    passive_layers: [sensor_fusion, vision, audio]
+    benchmark:
+      window_seconds: 30
+      degradation_factors:
+        intercept:
+          sensor_fusion: 0.90
+          communication: 0.85
+        spoof:
+          sensor_fusion: 0.85
+      expected_zidr_range:
+        min: 0.05
+        max: 0.20
+    metadata:
+      criticality_score: 5
+      criticality_definition: >
+        Complete alert failure during high-risk event with no fallback path.
+      confidence_level: high
+      calibration_note: >
+        Intercept prior on communication reflects urban-fringe signal drop in Indian
+        metro outskirts; spoof prior on sensor_fusion models driver's ability to
+        physically orient device away from CV capture angle. 30-second window assumes
+        victim recognises deviation after first known route divergence point.
+      test_reproducibility: high
+      time_horizon: immediate
+      novel_attack_vector: false
+      sociotechnical_attack: false
+    evidence_basis:
+      primary:
+        - "Incident data on app-based cab harassment, India 2022–2024"
+      secondary:
+        - "Delhi/Mumbai ride-hail safety audit reports"
+      inferred: []
+    governance_gap:
+      missing_requirements:
+        - "No framework requires location-spoofing resistance in personal safety apps"
+        - "DPDP Act covers data storage, not real-time attack surfaces"
+        - "No certification standard for route-deviation alerting under signal loss"
+    regulatory_mapping:
+      affected_frameworks: [INDIA_DPDP, EU_AI_ACT, NIST_AI_RMF]
 
-  - id: "U-03"
-    name: "Office / Workplace, Authority Figure"
-    contexts: ["U2"]
-    threat_type: "workplace_harassment"
-    adversary_type: "informed"
-    access_level_min: 4
-    access_level_max: 5
-    attack_methods: ["suppress"]
-    subsystems_targeted: []
-    evasion_mechanism: >
-      Alert never initiated — victim does not trigger because adversary holds employer
-      authority; fear of professional consequences outweighs the cost of triggering.
-    governance_gap_frameworks: ["EU_AI_ACT"]
-    all_frameworks_gap: true
-    novel_vector: false
-    governance_gap_note: >
-      No framework governs sociotechnical suppression; EU AI Act Annex III does not
-      classify workplace safety AI as high-risk.
-    citation_status: "needed"
-    citation_note: "iCall/iHuman — workplace harassment case patterns"
+  - scenario_id: "U-03"
+    scenario_name: "Office / Workplace, Authority Figure"
+    context_class:
+      geography: urban
+      subtype: semi_private_institutional
+      context_code: ["U2"]
+    scenario_narrative: >
+      A senior colleague or manager coerces the victim in a late-evening office setting.
+      No technical attack is required — the alert is never initiated because the adversary
+      holds formal professional authority and the victim fears retaliation. The safety
+      system functions correctly; suppression is institutionally coerced.
+      DISTINCTION FROM U-06: This scenario involves formal hierarchical authority
+      (employer/manager) that creates direct coercive pressure — the victim does not
+      hesitate out of social ambiguity but out of fear of professional consequences.
+      No threshold ambiguity; the relationship type and power differential are
+      unambiguous.
+    attack_profile:
+      adversary_type: informed
+      adversary_access_level: L5
+      attack_methods: [suppress]
+    failure_mode_type: [sociotechnical_suppression]
+    passive_layers: []
+    benchmark:
+      window_seconds: null
+      degradation_factors: {}
+      expected_zidr_range:
+        min: 0.0
+        max: 0.0
+    metadata:
+      criticality_score: 4
+      criticality_definition: >
+        Severe passive-detection failure with high false-safe risk — system reports
+        no threat because no alert was initiated, masking a real safety failure.
+      confidence_level: high
+      calibration_note: >
+        ZIDR undefined for sociotechnical suppression — treated as 0.0 by convention.
+        No passive sensing layers are engaged; alert_initiation_rate is 0.0 by design.
+        This scenario benchmarks institutional suppression, not sensor or algorithm
+        failure. Differentiated from U-06 (social hesitation without formal authority):
+        U-03 = coercive fear of professional retaliation; U-06 = social cost of
+        accusing a known person in a shared institutional context.
+      test_reproducibility: low
+      time_horizon: immediate
+      novel_attack_vector: false
+      sociotechnical_attack: true
+    evidence_basis:
+      primary:
+        - "iCall/iHuman workplace harassment case patterns — authority suppression"
+      secondary:
+        - "India POSH Act case data 2018–2023"
+      inferred: []
+    governance_gap:
+      missing_requirements:
+        - "No framework governs sociotechnical suppression as a recognised safety system failure mode"
+        - "EU AI Act Annex III does not classify workplace safety AI as high-risk"
+        - "No standard requires alert-initiation suppression testing in institutional contexts"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, INDIA_DPDP, ISO_42001]
 
-  - id: "U-04"
-    name: "Street Market, Shoulder Bag Obstruction"
-    contexts: ["U1"]
-    threat_type: "street_following"
-    adversary_type: "opportunistic"
-    access_level_min: 0
-    access_level_max: 0
-    attack_methods: ["suppress"]
-    subsystems_targeted: ["vision", "audio"]
-    evasion_mechanism: >
-      Victim's bag or crowd bodies block phone camera angle; CV proximity detection fails;
-      audio baseline elevated by market noise.
-    governance_gap_frameworks: []
-    all_frameworks_gap: true
-    novel_vector: false
-    governance_gap_note: >
-      No standard requires CV robustness testing under real-world occlusion conditions.
-    citation_status: "needed"
-    citation_note: "Safetipin safety audit data — market contexts"
+  - scenario_id: "U-04"
+    scenario_name: "Street Market, Shoulder Bag Obstruction"
+    context_class:
+      geography: urban
+      subtype: public_market
+      context_code: ["U1"]
+    scenario_narrative: >
+      Adversary follows the victim through a crowded market and gropes or attempts
+      assault while in close proximity. The victim's bag and surrounding crowd bodies
+      block the phone camera's field of view. Elevated market noise prevents audio
+      distress detection from triggering. Passive sensing layers are partially degraded
+      by environmental conditions without any deliberate technical attack.
+    attack_profile:
+      adversary_type: opportunistic
+      adversary_access_level: L0
+      attack_methods: [suppress]
+    failure_mode_type: [sensing_failure]
+    passive_layers: [vision, audio]
+    benchmark:
+      window_seconds: 8
+      degradation_factors:
+        suppress:
+          vision: 0.80
+          audio: 0.65
+      expected_zidr_range:
+        min: 0.10
+        max: 0.30
+    metadata:
+      criticality_score: 3
+      criticality_definition: >
+        Meaningful safety degradation with recoverable alert path — victim can still
+        manually trigger, and partial detection is possible.
+      confidence_level: medium
+      calibration_note: >
+        Suppress priors reflect bag and body occlusion at typical market densities;
+        audio degradation reflects baseline noise in urban Indian markets. ZIDR range
+        is higher than scenarios with full sensing failure because partial detection
+        may still trigger an alert. No deliberate technical attack — environmental
+        suppression only.
+      test_reproducibility: medium
+      time_horizon: immediate
+      novel_attack_vector: false
+      sociotechnical_attack: false
+    evidence_basis:
+      primary:
+        - "Safetipin safety audit data — market and street contexts"
+      secondary:
+        - "NCRB street harassment statistics"
+      inferred: []
+    governance_gap:
+      missing_requirements:
+        - "No standard requires CV robustness testing under real-world occlusion conditions"
+        - "No certification for audio classification under elevated ambient noise baselines"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, ISO_42001]
 
-  - id: "U-05"
-    name: "Bus Stop, Late Night — Exhaustion Attack"
-    contexts: ["U1"]
-    threat_type: "stalking"
-    adversary_type: "adaptive"
-    access_level_min: 0
-    access_level_max: 0
-    attack_methods: ["exhaust"]
-    subsystems_targeted: ["response"]
-    evasion_mechanism: >
-      Over previous weeks, adversary triggers false proximity alerts from this location;
-      victim's emergency contacts begin ignoring notifications — AI system works,
-      human response layer is defeated.
-    governance_gap_frameworks: []
-    all_frameworks_gap: true
-    novel_vector: true
-    governance_gap_note: >
-      No framework requires testing for alert exhaustion or contact response degradation
-      over time.
-    citation_status: "novel_flag"
-    citation_note: "No direct citation — novel attack vector"
+  - scenario_id: "U-05"
+    scenario_name: "Bus Stop, Late Night — Exhaustion Attack"
+    context_class:
+      geography: urban
+      subtype: public_transit_stop
+      context_code: ["U1"]
+    scenario_narrative: >
+      Over several weeks, the adversary repeatedly triggers false proximity alerts from
+      the same bus stop location. The victim's emergency contacts begin ignoring
+      notifications due to alert fatigue. When a real threat occurs, the passive alert
+      fires correctly but the human response layer is conditioned not to respond —
+      the AI system functions correctly; the contact network has been deliberately
+      defeated through temporal conditioning.
+    attack_profile:
+      adversary_type: adaptive
+      adversary_access_level: L0
+      attack_methods: [exhaust]
+    failure_mode_type: [response_failure]
+    passive_layers: [response]
+    benchmark:
+      window_seconds: null
+      degradation_factors:
+        exhaust:
+          response: 0.85
+      expected_zidr_range:
+        min: 0.0
+        max: 0.10
+    metadata:
+      criticality_score: 4
+      criticality_definition: >
+        Severe passive-detection failure with high false-safe risk — alert fires
+        correctly but the response layer has been conditioned not to act.
+      confidence_level: medium
+      calibration_note: >
+        Temporal scenario — cannot be benchmarked in a single evaluation run.
+        Response degradation prior assumes 3–4 weeks of false-alert conditioning
+        before the real threat event. Novel vector: no existing framework models
+        alert-fatigue-induced contact desensitisation as a deliberate adversarial
+        attack. Reproducibility is low without longitudinal test protocols.
+      test_reproducibility: low
+      time_horizon: long-term
+      novel_attack_vector: true
+      sociotechnical_attack: false
+    evidence_basis:
+      primary: []
+      secondary:
+        - "Alarm fatigue literature in emergency response and clinical systems"
+      inferred:
+        - "Novel attack vector — no direct citation. Derived from alert-fatigue patterns in clinical and security alarm literature."
+    governance_gap:
+      missing_requirements:
+        - "No framework requires testing for alert exhaustion or contact response degradation over time"
+        - "No certification standard models adversarial conditioning of human responder networks"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, ISO_42001]
 
-  - id: "U-06"
-    name: "College Campus, Known Acquaintance"
-    contexts: ["U2"]
-    threat_type: "campus_harassment"
-    adversary_type: "adaptive"
-    access_level_min: 1
-    access_level_max: 1
-    attack_methods: ["corrupt"]
-    subsystems_targeted: ["vision", "nlp"]
-    evasion_mechanism: >
-      Adversary has observed prior app behavior and stays at edge of detection confidence;
-      victim hesitates to trigger alert against a known person in an institutional setting.
-    governance_gap_frameworks: []
-    all_frameworks_gap: true
-    novel_vector: false
-    governance_gap_note: >
-      NLP check-in systems not tested for neutral-language threat framing;
-      social hesitation not addressed by any framework.
-    citation_status: "needed"
-    citation_note: "iCall — campus-context harassment patterns"
+  - scenario_id: "U-06"
+    scenario_name: "College Campus, Known Acquaintance"
+    context_class:
+      geography: urban
+      subtype: semi_private_institutional
+      context_code: ["U2"]
+    scenario_narrative: >
+      A classmate or junior faculty member harasses the victim in a campus building
+      after hours. The adversary has observed app behavior previously and remains at
+      the edge of detection confidence — close enough to threaten but not triggering
+      an alert. The victim hesitates to trigger manually against a known person in
+      an institutional setting because doing so creates social cost, not coercive fear.
+      DISTINCTION FROM U-03: This scenario involves social ambiguity, not formal
+      authority. The adversary has no hierarchical power over the victim; hesitation
+      arises from the social cost of accusing a known person in a shared institutional
+      context — threshold ambiguity is the mechanism, not coercive fear of professional
+      retaliation. The overlap risk is real and must be explicitly tested in evaluation.
+    attack_profile:
+      adversary_type: adaptive
+      adversary_access_level: L1
+      attack_methods: [corrupt]
+    failure_mode_type: [sociotechnical_suppression, sensing_failure]
+    passive_layers: [vision, nlp]
+    benchmark:
+      window_seconds: 15
+      degradation_factors:
+        corrupt:
+          vision: 0.50
+          nlp: 0.60
+      expected_zidr_range:
+        min: 0.20
+        max: 0.45
+    metadata:
+      criticality_score: 3
+      criticality_definition: >
+        Meaningful safety degradation with recoverable alert path — partial detection
+        possible; victim can manually trigger despite hesitation.
+      confidence_level: medium
+      calibration_note: >
+        Lower degradation priors than U-01/U-02 reflect adversary staying at edge of
+        detection threshold rather than fully defeating sensing. ZIDR range is higher
+        because partial detection is possible. Sociotechnical hesitation (social cost)
+        reduces alert_initiation_rate but is not directly encoded in ZIDR —
+        these are separable failure dimensions. U-06 vs U-03 must be made explicit
+        in evaluation: U-03 = coercive authority, U-06 = social ambiguity + hesitation.
+      test_reproducibility: medium
+      time_horizon: immediate
+      novel_attack_vector: false
+      sociotechnical_attack: true
+    evidence_basis:
+      primary:
+        - "iCall campus-context harassment case patterns"
+      secondary:
+        - "UGC Prevention of Sexual Harassment guidelines — campus case data"
+      inferred: []
+    governance_gap:
+      missing_requirements:
+        - "NLP check-in systems not tested for neutral-language threat framing by a known actor"
+        - "Social hesitation as alert suppression mechanism not addressed by any framework"
+        - "No standard distinguishes authority suppression from social-ambiguity suppression"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, ISO_42001]
 
-  - id: "U-07"
-    name: "Social Venue / Party, Noise + Alcohol Context"
-    contexts: ["U2"]
-    threat_type: "social_venue_assault"
-    adversary_type: "opportunistic"
-    access_level_min: 0
-    access_level_max: 1
-    attack_methods: ["suppress", "corrupt"]
-    subsystems_targeted: ["audio", "vision"]
-    evasion_mechanism: >
-      Venue noise corrupts audio classification; crowded, dimly lit space defeats vision
-      proximity detection; victim's impairment raises threshold for triggering alert.
-    governance_gap_frameworks: []
-    all_frameworks_gap: true
-    novel_vector: true
-    governance_gap_note: >
-      No certification requires robustness testing in high-ambient-noise social
-      environments; impaired victim state not modeled in any standard.
-    citation_status: "needed"
-    citation_note: "Extrapolate from NCRB assault context data"
+  - scenario_id: "U-07"
+    scenario_name: "Social Venue / Party, Noise + Alcohol Context"
+    context_class:
+      geography: urban
+      subtype: semi_private_social
+      context_code: ["U2"]
+    scenario_narrative: >
+      Adversary makes physical contact with or harasses the victim at a crowded social
+      event. High ambient noise prevents audio classification from detecting distress.
+      Dim lighting and crowd density defeat visual proximity detection. The victim's
+      impaired state raises the threshold for manual alert triggering — reducing the
+      likelihood of victim-initiated response alongside sensing failures.
+    attack_profile:
+      adversary_type: opportunistic
+      adversary_access_level: L0
+      attack_methods: [suppress, corrupt]
+    failure_mode_type: [sensing_failure]
+    passive_layers: [audio, vision]
+    benchmark:
+      window_seconds: 10
+      degradation_factors:
+        suppress:
+          audio: 0.80
+          vision: 0.65
+        corrupt:
+          audio: 0.70
+          vision: 0.60
+      expected_zidr_range:
+        min: 0.05
+        max: 0.20
+    metadata:
+      criticality_score: 4
+      criticality_definition: >
+        Severe passive-detection failure with high false-safe risk — both sensing
+        layers degraded simultaneously; impaired victim state reduces manual fallback.
+      confidence_level: medium
+      calibration_note: >
+        Audio suppress prior reflects high ambient noise typical of party venues (90dB+);
+        vision priors model dim lighting and crowd density interaction. Victim impairment
+        is a real compounding factor but is not directly encoded in degradation priors —
+        it reduces the effective alert_initiation_rate independently of ZIDR.
+        Novel component: impaired victim state as a compounding failure mode not
+        modelled in any existing safety system standard.
+      test_reproducibility: medium
+      time_horizon: immediate
+      novel_attack_vector: true
+      sociotechnical_attack: false
+    evidence_basis:
+      primary: []
+      secondary:
+        - "NCRB assault context data — social events"
+      inferred:
+        - "Extrapolated from assault-in-social-setting patterns; no direct safety app testing data available"
+    governance_gap:
+      missing_requirements:
+        - "No certification requires robustness testing in high-ambient-noise social environments"
+        - "Impaired victim state not modelled in any safety app testing standard"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, ISO_42001]
 
-  - id: "U-08"
-    name: "Public Toilet / Changing Area, Device Grab"
-    contexts: ["U1", "U2"]
-    threat_type: "device_grab"
-    adversary_type: "opportunistic"
-    access_level_min: 2
-    access_level_max: 2
-    attack_methods: ["intercept"]
-    subsystems_targeted: ["communication", "response"]
-    evasion_mechanism: >
-      Adversary grabs device before alert can be sent, or blocks the space while device
-      is out of reach — communication and response layers intercepted.
-    governance_gap_frameworks: []
-    all_frameworks_gap: true
-    novel_vector: true
-    governance_gap_note: >
-      No framework addresses physical device interception as a failure mode;
-      evidence preservation not certified.
-    citation_status: "novel_flag"
-    citation_note: "No direct citation — device-grab as suppression vector"
+  - scenario_id: "U-08"
+    scenario_name: "Public Toilet / Changing Area, Device Grab"
+    context_class:
+      geography: urban
+      subtype: isolated_semi_private
+      context_code: ["U1", "U2"]
+    scenario_narrative: >
+      Adversary grabs the victim's device before an alert can be sent, or physically
+      blocks the exit while the device is out of the victim's reach. Both communication
+      and response layers are intercepted before alert transmission completes. The
+      zero-interaction window collapses to near zero — no passive or active detection
+      pathway remains available to the victim.
+    attack_profile:
+      adversary_type: opportunistic
+      adversary_access_level: L2
+      attack_methods: [intercept]
+    failure_mode_type: [communication_failure, response_failure]
+    passive_layers: [communication, response]
+    benchmark:
+      window_seconds: 3
+      degradation_factors:
+        intercept:
+          communication: 0.95
+          response: 0.90
+      expected_zidr_range:
+        min: 0.0
+        max: 0.05
+    metadata:
+      criticality_score: 5
+      criticality_definition: >
+        Complete alert failure during high-risk event with no fallback path.
+      confidence_level: medium
+      calibration_note: >
+        3-second window is the minimum credible alert transmission time before
+        physical device seizure. Intercept priors reflect near-total suppression —
+        device in adversary's hands eliminates both communication and response layers.
+        Novel vector: physical device interception as a systematic failure mode is
+        not modelled in any current safety system certification framework.
+      test_reproducibility: high
+      time_horizon: immediate
+      novel_attack_vector: true
+      sociotechnical_attack: false
+    evidence_basis:
+      primary: []
+      secondary:
+        - "NCRB — assault in enclosed public and private spaces"
+      inferred:
+        - "Novel device-grab as suppression vector — no direct safety app citation"
+    governance_gap:
+      missing_requirements:
+        - "No framework addresses physical device interception as a failure mode in personal safety systems"
+        - "Evidence preservation not certified under physical device seizure conditions"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, INDIA_DPDP, ISO_42001]
 
-  # ── RURAL SCENARIOS ──────────────────────────────────────────────────────────
+  - scenario_id: "U-09"
+    scenario_name: "Urban Transit Confinement, Delayed Intervention"
+    context_class:
+      geography: urban
+      subtype: isolated_confinement
+      context_code: ["U3"]
+    scenario_narrative: >
+      Victim is trapped in a moving vehicle (late-night transit such as auto-rickshaw
+      or private hire) with limited exit options. The adversary controls movement and
+      route. Confinement reduces physical escape options; noise masks audio distress
+      signals; restricted device access limits sensing; and delayed external response
+      eliminates any fallback intervention window. All three failure mode types converge:
+      sensing layers cannot detect distress under noise and obstruction, communication
+      cannot reach contacts or emergency services, and the response window is extended
+      beyond any actionable intervention threshold. This is the highest-complexity
+      scenario in the benchmark — the only scenario where all three failure dimensions
+      are simultaneously active.
+    attack_profile:
+      adversary_type: adaptive
+      adversary_access_level: L1
+      attack_methods: [suppress, intercept, corrupt]
+    failure_mode_type: [sensing_failure, communication_failure, response_failure]
+    passive_layers: [vision, audio, gps, communication]
+    benchmark:
+      window_seconds: 15
+      degradation_factors:
+        suppress:
+          vision: 0.80
+          audio: 0.65
+        corrupt:
+          gps: 0.75
+        intercept:
+          communication: 0.90
+      expected_zidr_range:
+        min: 0.00
+        max: 0.20
+    metadata:
+      criticality_score: 5
+      criticality_definition: >
+        Complete alert failure during high-risk event with no fallback path.
+      confidence_level: high
+      calibration_note: >
+        Composite scenario combining cab harassment patterns (U-02) with physical
+        confinement vectors. Suppress priors model noise inside moving vehicle and
+        device obstruction by adversary. GPS corrupt prior reflects signal variability
+        in urban movement. Communication intercept prior reflects delayed response
+        in late-night transit contexts. Sociotechnical component: victim cannot exit
+        moving vehicle without adversary cooperation, which escalates response failure
+        beyond the technical layer. All three failure mode types active simultaneously —
+        use this scenario as the combined-failure stress test for any system claiming
+        urban safety coverage.
+      test_reproducibility: medium
+      time_horizon: immediate
+      novel_attack_vector: false
+      sociotechnical_attack: true
+    evidence_basis:
+      primary:
+        - "NCRB crime data on transit-based assault and confinement"
+      secondary:
+        - "India cab harassment incident reports 2022–2024"
+      inferred:
+        - "Composite derived from U-02 (cab harassment) and U-08 (physical access) patterns"
+    governance_gap:
+      missing_requirements:
+        - "No framework addresses multi-failure-mode confinement scenarios in personal safety systems"
+        - "No testing standard for simultaneous sensing + communication + response layer failure"
+        - "Urban isolated confinement (U3) context class not recognised in any existing certification"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, INDIA_DPDP, ISO_42001]
 
-  - id: "R-01"
-    name: "Agricultural Field, Isolated Worker"
-    contexts: ["R2"]
-    threat_type: "rural_assault"
-    adversary_type: "adaptive"
-    access_level_min: 0
-    access_level_max: 3
-    attack_methods: ["intercept", "suppress"]
-    subsystems_targeted: ["communication"]
-    evasion_mechanism: >
-      No cellular signal — alert cannot transmit even if triggered; isolation removes
-      bystander deterrence; network dead zone is the primary attack surface.
-    governance_gap_frameworks: ["EU_AI_ACT", "NIST_AI_RMF", "INDIA_DPDP"]
-    all_frameworks_gap: true
-    novel_vector: false
-    governance_gap_note: >
-      No framework requires offline fallback capability; rural deployment not addressed
-      in EU AI Act or NIST AI RMF; India DPDP Act covers data, not connectivity failure.
-    citation_status: "needed"
-    citation_note: "NCRB — assault in agricultural/rural workplace settings"
+  # ── RURAL SCENARIOS ────────────────────────────────────────────────────────
 
-  - id: "R-02"
-    name: "Village Pathway, Dusk"
-    contexts: ["R1"]
-    threat_type: "pathway_assault"
-    adversary_type: "adaptive"
-    access_level_min: 0
-    access_level_max: 3
-    attack_methods: ["suppress"]
-    subsystems_targeted: ["vision", "response"]
-    evasion_mechanism: >
-      Darkness defeats CV; adversary knows victim's route and timing through environmental
-      familiarity; audio baseline is low but bystander likelihood is also near zero.
-    governance_gap_frameworks: []
-    all_frameworks_gap: true
-    novel_vector: false
-    governance_gap_note: >
-      No standard certifies CV performance under low-light rural conditions;
-      Safetipin data shows lighting as primary safety gap in rural pathways.
-    citation_status: "needed"
-    citation_note: "Safetipin rural lighting audit data"
+  - scenario_id: "R-01"
+    scenario_name: "Agricultural Field, Isolated Worker"
+    context_class:
+      geography: rural
+      subtype: agricultural_isolated
+      context_code: ["R2"]
+    scenario_narrative: >
+      Victim is working alone or in a small group in a field or plantation with no
+      bystanders and no cellular signal. Even if passive sensing layers trigger an
+      alert, no transmission is possible. The network dead zone is the primary attack
+      surface — the adversary exploits structural isolation opportunistically, without
+      requiring premeditation, route knowledge, or coordination.
+      DISTINCTION FROM R-03: This is a STATIC environment. The adversary exploits
+      a known structural dead zone opportunistically — no route knowledge, no timing
+      coordination, no movement is required. The isolation is structural, not engineered.
+    attack_profile:
+      adversary_type: adaptive
+      adversary_access_level: L0
+      attack_methods: [intercept, suppress]
+    failure_mode_type: [communication_failure]
+    passive_layers: [communication]
+    benchmark:
+      window_seconds: 60
+      degradation_factors:
+        intercept:
+          communication: 0.95
+        suppress:
+          communication: 0.90
+      expected_zidr_range:
+        min: 0.0
+        max: 0.10
+    metadata:
+      criticality_score: 5
+      criticality_definition: >
+        Complete alert failure during high-risk event with no fallback path.
+      confidence_level: high
+      calibration_note: >
+        Communication intercept prior reflects near-total signal loss in agricultural
+        dead zones; suppress prior reflects absence of bystanders who could respond.
+        60-second window assumes a sensing trigger exists but cannot transmit — the
+        bottleneck is purely at the communication layer. Differentiated from R-03
+        (coordinated timing in moving vehicle) by static, opportunistic exploitation
+        requiring no adversary premeditation beyond target selection.
+      test_reproducibility: high
+      time_horizon: immediate
+      novel_attack_vector: false
+      sociotechnical_attack: false
+    evidence_basis:
+      primary:
+        - "NCRB Crime in India — assault in agricultural and rural workplace settings"
+      secondary:
+        - "Safetipin rural connectivity audit data"
+      inferred: []
+    governance_gap:
+      missing_requirements:
+        - "No framework requires offline fallback capability for personal safety apps"
+        - "Rural deployment not addressed in EU AI Act or NIST AI RMF"
+        - "India DPDP Act covers data storage, not connectivity failure as a safety risk"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, INDIA_DPDP, ISO_42001]
 
-  - id: "R-03"
-    name: "Isolated Road Between Villages, Moving Vehicle"
-    contexts: ["R2", "T1"]
-    threat_type: "rural_transit_assault"
-    adversary_type: "informed"
-    access_level_min: 0
-    access_level_max: 2
-    attack_methods: ["intercept", "corrupt"]
-    subsystems_targeted: ["sensor_fusion", "communication"]
-    evasion_mechanism: >
-      Route passes through signal dead zone — adversary with local knowledge times
-      action to this window; GPS fix lost; no alert can transmit.
-    governance_gap_frameworks: ["CROSS_JURISDICTIONAL"]
-    all_frameworks_gap: false
-    novel_vector: false
-    governance_gap_note: >
-      No state-level framework coordinates rural connectivity requirements with
-      safety app certification; cross-jurisdictional gap.
-    citation_status: "needed"
-    citation_note: "NCRB — transit harassment, rural state data"
+  - scenario_id: "R-02"
+    scenario_name: "Village Pathway, Dusk"
+    context_class:
+      geography: rural
+      subtype: public_pathway
+      context_code: ["R1"]
+    scenario_narrative: >
+      Adversary is familiar with the victim's route and timing. The attack occurs on
+      a poorly lit pathway between the village and fields at dusk. Darkness defeats
+      computer vision proximity detection. The victim is alone — no bystanders to
+      deter the adversary or respond to an alert even if it fires.
+    attack_profile:
+      adversary_type: adaptive
+      adversary_access_level: L0
+      attack_methods: [suppress]
+    failure_mode_type: [sensing_failure, response_failure]
+    passive_layers: [vision, response]
+    benchmark:
+      window_seconds: 20
+      degradation_factors:
+        suppress:
+          vision: 0.90
+          response: 0.70
+      expected_zidr_range:
+        min: 0.05
+        max: 0.20
+    metadata:
+      criticality_score: 4
+      criticality_definition: >
+        Severe passive-detection failure with high false-safe risk — CV fails under
+        low-light conditions and no responder is available even if the alert fires.
+      confidence_level: medium
+      calibration_note: >
+        Vision suppress prior (0.90) reflects near-total CV failure at dusk on poorly
+        lit rural pathways; response suppress prior (0.70) reflects absence of
+        bystanders. Two independent failure modes active simultaneously: sensing and
+        response. Adversary does not require technical sophistication — environmental
+        conditions provide natural suppression.
+      test_reproducibility: high
+      time_horizon: immediate
+      novel_attack_vector: false
+      sociotechnical_attack: false
+    evidence_basis:
+      primary:
+        - "Safetipin rural lighting audit data"
+      secondary:
+        - "NCRB rural assault statistics — pathway contexts"
+      inferred: []
+    governance_gap:
+      missing_requirements:
+        - "No standard certifies CV performance under low-light rural conditions"
+        - "Response layer testing does not account for bystander absence in rural contexts"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, ISO_42001]
 
-  - id: "R-04"
-    name: "Village Common / Weekly Market, Community Authority"
-    contexts: ["R1"]
-    threat_type: "community_authority_harassment"
-    adversary_type: "informed"
-    access_level_min: 4
-    access_level_max: 5
-    attack_methods: ["suppress"]
-    subsystems_targeted: []
-    evasion_mechanism: >
-      Victim does not trigger alert because adversary holds community authority;
-      bystanders are socially conditioned not to intervene; triggering a public alert
-      against a community authority figure carries reputational cost that exceeds
-      perceived protection benefit.
-    governance_gap_frameworks: ["INDIA_IT_ACT"]
-    all_frameworks_gap: true
-    novel_vector: false
-    governance_gap_note: >
-      Sociotechnical suppression absent from all frameworks; India IT Act addresses
-      digital harm, not social suppression of safety systems.
-    citation_status: "needed"
-    citation_note: "iCall/iHuman — rural authority figure case patterns"
+  - scenario_id: "R-03"
+    scenario_name: "Isolated Road Between Villages, Moving Vehicle"
+    context_class:
+      geography: rural
+      subtype: transit_moving_rural
+      context_code: ["R2", "T1"]
+    scenario_narrative: >
+      Victim is travelling in an auto-rickshaw or shared vehicle on a rural road.
+      The adversary — driver or co-passenger — times the attack to a known network
+      dead zone. GPS signal is lost, no alert can transmit, and route deviation cannot
+      be detected or reported. The attack requires local knowledge of the route's
+      signal loss windows and deliberate timing coordination.
+      DISTINCTION FROM R-01: This is a MOVING transport scenario with coordinated
+      timing. The adversary requires route knowledge and environmental intelligence
+      to identify and exploit the signal dead zone during transit — a premeditated
+      attack with a local knowledge dependency, not opportunistic exploitation of
+      static isolation.
+    attack_profile:
+      adversary_type: informed
+      adversary_access_level: L0
+      attack_methods: [intercept, corrupt]
+    failure_mode_type: [sensing_failure, communication_failure]
+    passive_layers: [sensor_fusion, communication]
+    benchmark:
+      window_seconds: 45
+      degradation_factors:
+        intercept:
+          communication: 0.90
+          sensor_fusion: 0.80
+        corrupt:
+          sensor_fusion: 0.85
+      expected_zidr_range:
+        min: 0.0
+        max: 0.15
+    metadata:
+      criticality_score: 5
+      criticality_definition: >
+        Complete alert failure during high-risk event with no fallback path.
+      confidence_level: high
+      calibration_note: >
+        Communication intercept prior reflects dead zone signal loss on rural
+        inter-village roads; sensor_fusion priors model GPS fix loss and inability
+        to detect route deviation without connectivity. 45-second window reflects
+        typical transit time through a rural dead zone. Differentiated from R-01
+        by adversary's requirement for local route knowledge and deliberate timing —
+        the informed adversary type reflects this pre-attack reconnaissance.
+      test_reproducibility: high
+      time_horizon: immediate
+      novel_attack_vector: false
+      sociotechnical_attack: false
+    evidence_basis:
+      primary:
+        - "NCRB transit harassment — rural state-level data"
+      secondary:
+        - "India rural connectivity reports — inter-village road signal coverage"
+      inferred: []
+    governance_gap:
+      missing_requirements:
+        - "No state-level framework coordinates rural connectivity requirements with safety app certification"
+        - "Cross-jurisdictional gap: no shared standard for rural transit safety app performance"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, INDIA_DPDP, ISO_42001]
 
-  - id: "R-05"
-    name: "Agricultural Employer Context, Seasonal Labour"
-    contexts: ["R1", "R2"]
-    threat_type: "employer_coercion"
-    adversary_type: "informed"
-    access_level_min: 4
-    access_level_max: 5
-    attack_methods: ["suppress"]
-    subsystems_targeted: ["response", "vision", "audio"]
-    evasion_mechanism: >
-      Employer has authority over victim's livelihood and housing; economic dependency
-      raises threshold for triggering alert; employer may have incidental device access
-      (charging, storage) enabling secondary suppression of vision/audio.
-    governance_gap_frameworks: ["CROSS_JURISDICTIONAL"]
-    all_frameworks_gap: true
-    novel_vector: true
-    governance_gap_note: >
-      Economic coercion as suppression vector not addressed by any framework;
-      labour law and safety app certification exist in completely separate regulatory
-      silos.
-    citation_status: "novel_flag"
-    citation_note: "No direct citation — novel sociotechnical vector"
+  - scenario_id: "R-04"
+    scenario_name: "Village Common / Weekly Market, Community Authority"
+    context_class:
+      geography: rural
+      subtype: public_community
+      context_code: ["R1"]
+    scenario_narrative: >
+      A senior community figure — panchayat member, elder, or employer — threatens
+      or harasses the victim in a public rural setting. Bystanders are socially
+      conditioned not to intervene. The victim does not trigger an alert because
+      doing so publicly against a community authority carries a reputational cost
+      that exceeds the perceived protection benefit. The safety system functions
+      correctly; the alert is never initiated due to community authority suppression.
+    attack_profile:
+      adversary_type: informed
+      adversary_access_level: L5
+      attack_methods: [suppress]
+    failure_mode_type: [sociotechnical_suppression]
+    passive_layers: []
+    benchmark:
+      window_seconds: null
+      degradation_factors: {}
+      expected_zidr_range:
+        min: 0.0
+        max: 0.0
+    metadata:
+      criticality_score: 4
+      criticality_definition: >
+        Severe passive-detection failure with high false-safe risk — system reports
+        no threat because no alert was initiated, masking a real safety failure.
+      confidence_level: medium
+      calibration_note: >
+        ZIDR undefined for sociotechnical suppression — treated as 0.0 by convention.
+        No passive sensing layers engaged. Bystander non-intervention is actively
+        conditioned by community norms, not merely incidental. Rural community
+        authority suppression differs from urban institutional suppression (U-03) in
+        that community norms replace formal hierarchy as the coercive mechanism;
+        the reputational cost is communal rather than professional.
+      test_reproducibility: low
+      time_horizon: immediate
+      novel_attack_vector: false
+      sociotechnical_attack: true
+    evidence_basis:
+      primary:
+        - "iCall/iHuman — rural authority figure harassment case patterns"
+      secondary:
+        - "NCRB data — assault by known community figures"
+      inferred: []
+    governance_gap:
+      missing_requirements:
+        - "Sociotechnical suppression absent from all frameworks as a recognised safety failure mode"
+        - "India IT Act addresses digital harm, not social suppression of safety systems"
+        - "No framework distinguishes community authority suppression from institutional authority suppression"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, INDIA_IT_ACT, ISO_42001]
+
+  - scenario_id: "R-05"
+    scenario_name: "Agricultural Employer Context, Seasonal Labour"
+    context_class:
+      geography: rural
+      subtype: agricultural_employer_context
+      context_code: ["R1", "R2"]
+    scenario_narrative: >
+      Victim is a seasonal migrant worker whose housing and livelihood depend on the
+      adversary employer. The adversary's economic authority raises the threshold for
+      triggering an alert. The employer may also have incidental access to the victim's
+      device — for charging or storage — enabling secondary suppression of vision and
+      audio sensing. Economic coercion operates as an ongoing, long-term suppression
+      mechanism across multiple potential threat events, not a single incident.
+    attack_profile:
+      adversary_type: informed
+      adversary_access_level: L5
+      attack_methods: [suppress]
+    failure_mode_type: [sociotechnical_suppression, sensing_failure]
+    passive_layers: [response, vision, audio]
+    benchmark:
+      window_seconds: null
+      degradation_factors:
+        suppress:
+          response: 0.85
+          vision: 0.60
+          audio: 0.60
+      expected_zidr_range:
+        min: 0.0
+        max: 0.15
+    metadata:
+      criticality_score: 4
+      criticality_definition: >
+        Severe passive-detection failure with high false-safe risk — economic coercion
+        suppresses alert initiation; incidental device access degrades sensing layers.
+      confidence_level: medium
+      calibration_note: >
+        Temporal scenario — suppression operates across multiple threat instances, not
+        a single event. Response suppress prior models economic dependency raising the
+        alert trigger threshold; vision/audio priors model incidental employer device
+        access (charging, storage). Novel vector: economic coercion as a deliberate
+        suppression mechanism intersecting with technical access to sensing layers —
+        a compound sociotechnical + technical attack not modelled in any framework.
+      test_reproducibility: low
+      time_horizon: long-term
+      novel_attack_vector: true
+      sociotechnical_attack: true
+    evidence_basis:
+      primary: []
+      secondary:
+        - "India bonded labour and migrant worker case literature"
+        - "ILO reports on seasonal agricultural labour vulnerability in India"
+      inferred:
+        - "Novel sociotechnical vector — no direct safety app citation; derived from labour exploitation patterns"
+    governance_gap:
+      missing_requirements:
+        - "Economic coercion as suppression vector not addressed by any AI safety framework"
+        - "Labour law and safety app certification exist in completely separate regulatory silos"
+        - "No framework requires temporal suppression testing across multiple threat instances"
+    regulatory_mapping:
+      affected_frameworks: [EU_AI_ACT, NIST_AI_RMF, INDIA_DPDP, ISO_42001]
