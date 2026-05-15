@@ -84,7 +84,7 @@ TEX = r"""\documentclass[11pt,a4paper]{article}
 \title{%
   \textbf{Adversarial Robustness in Women's Safety AI Systems:}\\[6pt]
   \large Threat Taxonomy, Zero-Interaction Detection Rate (ZIDR),\\
-  and Benchmark Evaluation%
+  and Governance Gap Analysis%
 }
 
 \author{%
