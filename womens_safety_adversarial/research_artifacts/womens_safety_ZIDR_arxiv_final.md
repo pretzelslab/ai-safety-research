@@ -10,7 +10,7 @@ Scenario library & data: Zenodo DOI https://doi.org/10.5281/zenodo.20028247
 
 Passive-detection robustness -- the ability of a safety-critical AI system to trigger an alert without user interaction, under adversary-induced sensing degradation -- is not evaluated by any existing benchmark or required by any major AI governance framework. This paper addresses the gap in the context of women's safety AI systems, where the physically proximate adversary model is both realistic and systematically understudied.
 
-We introduce three contributions: (1) a four-layer threat taxonomy formalised as a benchmark schema, mapping attack surfaces, attack methods, and adversary access levels across sensing, processing, communication, and response layers; (2) Zero-Interaction Detection Rate (ZIDR), a scoring metric for passive-only detection performance under adversary-induced degradation, with a Python CLI specification for reproducible system profiling; and (3) a 13-scenario library spanning urban and rural Indian deployment contexts, structured for benchmark evaluation against any safety system profile.
+We introduce three contributions: (1) a four-layer threat taxonomy formalised as a benchmark schema, mapping attack surfaces, attack methods, and adversary access levels across sensing, processing, communication, and response layers; (2) Zero-Interaction Detection Rate (ZIDR), a scoring metric for passive-only detection performance under adversary-induced degradation, with a Python CLI specification for reproducible system profiling; and (3) a 14-scenario library spanning urban and rural Indian deployment contexts, structured for benchmark evaluation against any safety system profile.
 
 A standards coverage analysis across the EU AI Act, NIST AI RMF, ISO 42001, India DPDP Act 2023, and the India IT Act confirms a structural absence of passive-detection robustness requirements in current AI safety governance. This work provides the taxonomy, metric definition, and scenario library required to make passive-robustness testing operationalisable by standards bodies and independent evaluators.
 
@@ -92,7 +92,7 @@ The core finding: the most dangerous attacks require the least technical sophist
 
 **Figure 1 -- Threat Taxonomy Heatmap: Minimum Adversary Access Level by Layer and Attack Method**
 
-*Each cell shows the lowest access level at which the attack was observed across 13 grounded scenarios. Lower = more accessible adversary = higher governance urgency.*
+*Each cell shows the lowest access level at which the attack was observed across 14 grounded scenarios. Lower = more accessible adversary = higher governance urgency.*
 
 | Attack Surface Layer | Suppress | Corrupt | Spoof | Exhaust | Intercept |
 |---|---|---|---|---|---|
@@ -114,7 +114,7 @@ The core finding: the most dangerous attacks require the least technical sophist
 
 ## 4. Scenario Library
 
-Thirteen illustrative scenarios -- 8 urban, 5 rural -- developed for the Indian deployment context and consistent with patterns documented in NCRB Annual Reports (2019-2023) and Safetipin urban safety audit reports. Scenarios are designed to demonstrate the threat taxonomy; individual citation gaps are flagged in the extended scenario library (Appendix A; Zenodo DOI above).
+Fourteen illustrative scenarios -- 9 urban, 5 rural -- developed for the Indian deployment context and consistent with patterns documented in NCRB Annual Reports (2019-2023) and Safetipin urban safety audit reports. Scenarios are designed to demonstrate the threat taxonomy; individual citation gaps are flagged in the extended scenario library (Appendix A; Zenodo DOI above).
 
 Each scenario specifies:
 - Attack method and adversary access level
@@ -252,7 +252,7 @@ zidr-probe --system-profile system.yaml \
     "response": 0.18
   },
   "governance_gaps": ["EU_AI_Act_Annex_III", "NIST_RMF_GOVERN"],
-  "scenarios_tested": 13,
+  "scenarios_tested": 14,
   "scenarios_detected": 3
 }
 ```
@@ -275,7 +275,7 @@ Implementation is Phase 2. Specification and scenario library available at: gith
 
 ## 9. Limitations
 
-- **Scenario library is not exhaustive.** 13 scenarios cover urban/rural Indian context; generalization to other geographies requires expansion.
+- **Scenario library is not exhaustive.** 14 scenarios cover urban/rural Indian context; generalization to other geographies requires expansion.
 - **ZIDR measurement is unvalidated empirically.** The proposed metric and taxonomy have not yet undergone large-scale empirical validation across commercial safety applications. Baseline ZIDR values, minimum acceptable thresholds, and protocol replication standards require partner validation with safety app vendors.
 - **Sociotechnical attack surface is underspecified.** Level 2 (social conditioning) scenarios are qualitative; operationalizing them for quantitative ZIDR measurement requires additional methodology.
 - **Tool specification only; implementation pending.** The Probe Robustness Tool is a design specification. Phase 2 implementation is planned.
@@ -328,7 +328,7 @@ Woodlock, D. (2017). The Abuse of Technology in Domestic Violence and Stalking. 
 
 ## Appendix A: Full Scenario Library
 
-*13 grounded scenarios. Urban (U-01-U-08) and rural (R-01-R-05). All scenarios confirmed 2026-05-05. [!] = novel attack vector not documented in existing adversarial ML or GBV literature.*
+*14 grounded scenarios. Urban (U-01--U-09) and rural (R-01-R-05). All scenarios confirmed 2026-05-05. [!] = novel attack vector not documented in existing adversarial ML or GBV literature.*
 
 | ID | Scenario | Context | Adv. Type | Min. Access | Attack Method(s) | Passive Layer(s) Defeated | Governance Gap |
 |---|---|---|---|---|---|---|---|

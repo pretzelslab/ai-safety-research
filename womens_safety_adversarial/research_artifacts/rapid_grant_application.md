@@ -32,7 +32,7 @@ A system can achieve 95% accuracy in benchmark testing and 0% effective detectio
 This research is substantially complete. The following have been produced as independent, unfunded work:
 
 - **Threat taxonomy** — 4-layer attack surface classification × 5 attack methods × 6 adversary access levels; Access Level 0 requires only physical proximity, no device contact, no technical knowledge
-- **Scenario library** — 13 grounded scenarios (8 urban, 5 rural) anchored in Indian context, drawing on NCRB Annual Reports for incident patterns
+- **Scenario library** — 14 grounded scenarios (9 urban, 5 rural) anchored in Indian context, drawing on NCRB Annual Reports for incident patterns
 - **AI subsystem mapping** — failure modes documented for computer vision, audio classification, sensor fusion, and language/NLP layers
 - **Governance gap analysis** — specific ungoverned attack surfaces identified across EU AI Act, NIST AI RMF, ISO 42001, and India DPDP Act 2023
 - **ZIDR metric** — novel evaluation criterion defined, documented, and connected to the governance gap

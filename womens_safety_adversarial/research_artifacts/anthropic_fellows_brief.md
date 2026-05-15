@@ -42,7 +42,7 @@ Access Level 0 requires only physical proximity. No device contact. No technical
 
 **2. Scenario Library**
 
-13 grounded scenarios — 8 urban, 5 rural — anchored in Indian context. Each scenario maps to an attack method, an adversary access level, a deployment context, and a specific governance gap. Sources include NCRB Annual Reports (crime against women, state and district breakdowns) and Safetipin (urban street-level safety audit data, Indian cities).
+14 grounded scenarios — 9 urban, 5 rural — anchored in Indian context. Each scenario maps to an attack method, an adversary access level, a deployment context, and a specific governance gap. Sources include NCRB Annual Reports (crime against women, state and district breakdowns) and Safetipin (urban street-level safety audit data, Indian cities).
 
 **3. Governance Gap Analysis**
 

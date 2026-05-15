@@ -48,7 +48,7 @@ No existing research studies this adversary. Confirmed across nine published sou
 ## What This Research Produces
 
 1. **Threat taxonomy** — a 4-layer attack surface framework × 5 attack methods × 6 adversary access levels; the lowest level requires only physical proximity
-2. **Scenario library** — 13 grounded scenarios (8 urban, 5 rural) anchored in Indian incident data, each mapped to an attack method and a governance gap
+2. **Scenario library** — 14 grounded scenarios (9 urban, 5 rural) anchored in Indian incident data, each mapped to an attack method and a governance gap
 3. **Governance gap analysis** — specific ungoverned attack surfaces identified in EU AI Act, NIST AI RMF, ISO 42001, and India's Digital Personal Data Protection Act 2023
 4. **ZIDR** — a proposed evaluation metric: the proportion of attack scenarios correctly detected and alerted without any user action, under adversary-induced conditions
 5. **Probe robustness tool specification** — open methodology for evaluating any safety system profile against this taxonomy
