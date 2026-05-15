@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this benchmark, please cite it as below."
+type: software
+title: >-
+  ZIDR Benchmark: Adversarial Robustness Evaluation for Women's Safety AI
+  (Scenario Library, Probe Tool, and Benchmark Runner)
+abstract: >-
+  The ZIDR benchmark operationalises Zero-Interaction Detection Rate (ZIDR),
+  a metric for passive-detection robustness under adversary-induced sensing
+  degradation. It comprises a 14-scenario adversarial library grounded in
+  Indian deployment context, four reference system profiles, a ZIDR scoring
+  engine, and a governance gap checker covering five regulatory frameworks.
+authors:
+  - family-names: Raghuveeran
+    given-names: Preethi
+    orcid: ""
+repository-code: "https://github.com/pretzelslab/ai-safety-research"
+url: "https://doi.org/10.5281/zenodo.20028247"
+doi: "10.5281/zenodo.20028247"
+date-released: "2026-05-14"
+version: "2.0.0"
+license: "CC-BY-4.0"
+keywords:
+  - women's safety
+  - adversarial robustness
+  - AI safety
+  - benchmark
+  - zero-interaction detection
+  - passive sensing
+  - governance gap
+  - India
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Raghuveeran
+      given-names: Preethi
+  title: >-
+    Adversarial Robustness in Women's Safety AI Systems: Threat Taxonomy,
+    Zero-Interaction Detection Rate (ZIDR), and Governance Gap Analysis
+  year: 2026
+  doi: "10.5281/zenodo.20028247"
+  url: "https://doi.org/10.5281/zenodo.20028247"

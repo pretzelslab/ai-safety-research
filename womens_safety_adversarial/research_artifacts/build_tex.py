@@ -10,7 +10,7 @@ Run: python build_tex.py
 import os, shutil, subprocess, pathlib
 
 BASE     = pathlib.Path(os.path.dirname(os.path.abspath(__file__)))
-FIGS_SRC = BASE / ".." / "probe_robustness" / "results"
+FIGS_SRC = BASE / ".." / "benchmark" / "results"
 BUILD    = pathlib.Path("C:/tmp_latex_test")
 OUT_PDF  = BASE / "ZIDR_benchmark_paper_v3.pdf"
 
@@ -784,11 +784,11 @@ with minimum access levels and scenario footnotes.
 
 \medskip
 \noindent\textbf{Scenario library (YAML):}\\
-\texttt{pretzelslab/ai-safety-research/womens\_safety\_adversarial/probe\_robustness/scenarios/}
+\texttt{pretzelslab/ai-safety-research/womens\_safety\_adversarial/scenarios/}
 
 \medskip
 \noindent\textbf{Benchmark results (CSV):}\\
-\texttt{pretzelslab/ai-safety-research/womens\_safety\_adversarial/probe\_robustness/results/}
+\texttt{pretzelslab/ai-safety-research/womens\_safety\_adversarial/benchmark/results/}
 
 \end{document}
 """
