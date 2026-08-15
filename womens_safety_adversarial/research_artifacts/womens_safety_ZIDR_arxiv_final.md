@@ -1,7 +1,7 @@
 # Adversarial Robustness in Women's Safety AI Systems: Threat Taxonomy, Zero-Interaction Detection Rate (ZIDR), and Governance Gap Analysis
 
 **Preethi Raghuveeran** / Independent Researcher  
-[removed] / ORCID: 0009-0009-1907-8223  
+ORCID: 0009-0009-1907-8223  
 Scenario library & data: Zenodo DOI https://doi.org/10.5281/zenodo.20028247
 
 ---

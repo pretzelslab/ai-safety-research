@@ -1,6 +1,6 @@
 ---
 title: "Adversarial Robustness in Women's Safety AI Systems: Threat Taxonomy, Zero-Interaction Detection Rate (ZIDR), and Governance Gap Analysis"
-author: "Preethi Raghuveeran / Independent Researcher / [removed] / ORCID: 0009-0009-1907-8223"
+author: "Preethi Raghuveeran / Independent Researcher / ORCID: 0009-0009-1907-8223"
 date: "May 2026"
 geometry: "margin=1in"
 fontsize: 11pt

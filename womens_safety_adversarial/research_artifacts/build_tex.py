@@ -90,7 +90,6 @@ TEX = r"""\documentclass[11pt,a4paper]{article}
 \author{%
   Preethi Raghuveeran\\[4pt]
   \small Independent Researcher \quad
-  \href{mailto:[removed]}{[removed]} \quad
   ORCID: 0009-0009-1907-8223%
 }
 

@@ -67,7 +67,6 @@ class Paper(FPDF):
         self.set_font("Helvetica", "", 9.5)
         for line in [
             "Independent Researcher",
-            "[removed]",
             "ORCID: 0009-0009-1907-8223",
         ]:
             self.multi_cell(0, 5.5, safe(line),

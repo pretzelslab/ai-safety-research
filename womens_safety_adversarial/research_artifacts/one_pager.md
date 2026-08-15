@@ -72,7 +72,7 @@ The EU AI Act classifies women's safety systems as high-risk AI (Annex III). Con
 
 **Preethi Raghuveeran**
 Independent AI Safety Researcher
-[removed] | github.com/pretzelslab
+ORCID: 0009-0009-1907-8223 | github.com/pretzelslab
 
 **Cite this work:**
 Raghuveeran, P. (2026). Adversarial Robustness in Women's Safety AI Systems: Threat Taxonomy, ZIDR Metric, and Governance Gap Analysis. Zenodo. https://doi.org/10.5281/zenodo.20028247
