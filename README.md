@@ -19,7 +19,6 @@ Produces a 4-layer threat taxonomy × 5 attack methods × 6 adversary access lev
 
 **Finding:** No existing governance framework requires passive-detection-only robustness testing. Every framework evaluates AI systems against cooperative users. ZIDR names and measures the gap.
 
-Primary artifact for Anthropic Fellows Program application.  
 **Zenodo DOI:** [10.5281/zenodo.20028247](https://doi.org/10.5281/zenodo.20028247)
 
 ---
